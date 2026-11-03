@@ -1,0 +1,3715 @@
+{
+  "metadata": {
+    "name": "SurgicalAgent Knowledge Graph",
+    "version": "1.0",
+    "dataset": "CholecT50",
+    "num_instruments": 6,
+    "num_verbs": 10,
+    "num_targets": 15,
+    "num_triplets": 100,
+    "num_nodes": 131,
+    "num_edges": 316,
+    "source_files": [
+      "instrument_names.json",
+      "verb_names.json",
+      "target_names.json",
+      "triplet_classes.json",
+      "label_mapping.txt",
+      "surgical_knowledge.json"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "instrument:0",
+      "type": "instrument",
+      "class_id": 0,
+      "name": "grasper",
+      "description": "A surgical instrument used to grasp, hold, retract, and manipulate tissue.",
+      "functions": [
+        "grasp",
+        "retract",
+        "manipulate"
+      ]
+    },
+    {
+      "id": "instrument:1",
+      "type": "instrument",
+      "class_id": 1,
+      "name": "bipolar",
+      "description": "A bipolar electrosurgical instrument commonly used for coagulation and dissection.",
+      "functions": [
+        "coagulate",
+        "dissect",
+        "grasp",
+        "retract"
+      ]
+    },
+    {
+      "id": "instrument:2",
+      "type": "instrument",
+      "class_id": 2,
+      "name": "hook",
+      "description": "An electrosurgical hook used for dissection, cutting, and coagulation.",
+      "functions": [
+        "dissect",
+        "cut",
+        "coagulate"
+      ]
+    },
+    {
+      "id": "instrument:3",
+      "type": "instrument",
+      "class_id": 3,
+      "name": "scissors",
+      "description": "A surgical cutting instrument used mainly for cutting and dissection.",
+      "functions": [
+        "cut",
+        "dissect"
+      ]
+    },
+    {
+      "id": "instrument:4",
+      "type": "instrument",
+      "class_id": 4,
+      "name": "clipper",
+      "description": "A clip applicator used to place surgical clips on vessels or ducts.",
+      "functions": [
+        "clip"
+      ]
+    },
+    {
+      "id": "instrument:5",
+      "type": "instrument",
+      "class_id": 5,
+      "name": "irrigator",
+      "description": "A surgical suction and irrigation instrument.",
+      "functions": [
+        "aspirate",
+        "irrigate",
+        "dissect",
+        "retract"
+      ]
+    },
+    {
+      "id": "verb:0",
+      "type": "verb",
+      "class_id": 0,
+      "name": "grasp",
+      "description": "Grasping or holding tissue with a surgical instrument."
+    },
+    {
+      "id": "verb:1",
+      "type": "verb",
+      "class_id": 1,
+      "name": "retract",
+      "description": "Pulling or holding tissue away to expose the surgical field."
+    },
+    {
+      "id": "verb:2",
+      "type": "verb",
+      "class_id": 2,
+      "name": "dissect",
+      "description": "Separating tissue structures during surgery."
+    },
+    {
+      "id": "verb:3",
+      "type": "verb",
+      "class_id": 3,
+      "name": "coagulate",
+      "description": "Applying energy to tissue or vessels to achieve hemostasis."
+    },
+    {
+      "id": "verb:4",
+      "type": "verb",
+      "class_id": 4,
+      "name": "clip",
+      "description": "Applying a surgical clip to a vessel or duct."
+    },
+    {
+      "id": "verb:5",
+      "type": "verb",
+      "class_id": 5,
+      "name": "cut",
+      "description": "Dividing tissue using a cutting instrument."
+    },
+    {
+      "id": "verb:6",
+      "type": "verb",
+      "class_id": 6,
+      "name": "aspirate",
+      "description": "Removing fluid from the surgical field."
+    },
+    {
+      "id": "verb:7",
+      "type": "verb",
+      "class_id": 7,
+      "name": "irrigate",
+      "description": "Washing the surgical field with fluid."
+    },
+    {
+      "id": "verb:8",
+      "type": "verb",
+      "class_id": 8,
+      "name": "pack",
+      "description": "Placing or manipulating material for packing."
+    },
+    {
+      "id": "verb:9",
+      "type": "verb",
+      "class_id": 9,
+      "name": "null_verb",
+      "description": "Special verb indicating no action (for placeholder)."
+    },
+    {
+      "id": "target:0",
+      "type": "target",
+      "class_id": 0,
+      "name": "gallbladder",
+      "description": "The gallbladder."
+    },
+    {
+      "id": "target:1",
+      "type": "target",
+      "class_id": 1,
+      "name": "cystic_plate",
+      "description": "The connective tissue plate surrounding the cystic duct and artery."
+    },
+    {
+      "id": "target:2",
+      "type": "target",
+      "class_id": 2,
+      "name": "cystic_duct",
+      "description": "The duct connecting the gallbladder to the biliary tree."
+    },
+    {
+      "id": "target:3",
+      "type": "target",
+      "class_id": 3,
+      "name": "cystic_artery",
+      "description": "The artery supplying the gallbladder."
+    },
+    {
+      "id": "target:4",
+      "type": "target",
+      "class_id": 4,
+      "name": "cystic_pedicle",
+      "description": "The bundle containing the cystic duct and artery."
+    },
+    {
+      "id": "target:5",
+      "type": "target",
+      "class_id": 5,
+      "name": "blood_vessel",
+      "description": "General blood vessel (not specifically cystic)."
+    },
+    {
+      "id": "target:6",
+      "type": "target",
+      "class_id": 6,
+      "name": "fluid",
+      "description": "Bodily fluid present in the surgical field."
+    },
+    {
+      "id": "target:7",
+      "type": "target",
+      "class_id": 7,
+      "name": "abdominal_wall_cavity",
+      "description": "The interior surface of the abdominal wall."
+    },
+    {
+      "id": "target:8",
+      "type": "target",
+      "class_id": 8,
+      "name": "liver",
+      "description": "The liver."
+    },
+    {
+      "id": "target:9",
+      "type": "target",
+      "class_id": 9,
+      "name": "adhesion",
+      "description": "Abnormal fibrous band connecting tissues."
+    },
+    {
+      "id": "target:10",
+      "type": "target",
+      "class_id": 10,
+      "name": "omentum",
+      "description": "The omentum."
+    },
+    {
+      "id": "target:11",
+      "type": "target",
+      "class_id": 11,
+      "name": "peritoneum",
+      "description": "The peritoneal membrane."
+    },
+    {
+      "id": "target:12",
+      "type": "target",
+      "class_id": 12,
+      "name": "gut",
+      "description": "Intestinal tract."
+    },
+    {
+      "id": "target:13",
+      "type": "target",
+      "class_id": 13,
+      "name": "specimen_bag",
+      "description": "A bag used to retrieve resected tissue."
+    },
+    {
+      "id": "target:14",
+      "type": "target",
+      "class_id": 14,
+      "name": "null_target",
+      "description": "Placeholder target for no operation."
+    },
+    {
+      "id": "triplet:0",
+      "type": "triplet",
+      "class_id": 0,
+      "name": "grasper-dissect-cystic_plate",
+      "instrument": "grasper",
+      "verb": "dissect",
+      "target": "cystic_plate",
+      "instrument_id": 0,
+      "verb_id": 2,
+      "target_id": 1,
+      "iv_id": 2,
+      "it_id": 1,
+      "is_null": false
+    },
+    {
+      "id": "triplet:1",
+      "type": "triplet",
+      "class_id": 1,
+      "name": "grasper-dissect-gallbladder",
+      "instrument": "grasper",
+      "verb": "dissect",
+      "target": "gallbladder",
+      "instrument_id": 0,
+      "verb_id": 2,
+      "target_id": 0,
+      "iv_id": 2,
+      "it_id": 0,
+      "is_null": false
+    },
+    {
+      "id": "triplet:2",
+      "type": "triplet",
+      "class_id": 2,
+      "name": "grasper-dissect-omentum",
+      "instrument": "grasper",
+      "verb": "dissect",
+      "target": "omentum",
+      "instrument_id": 0,
+      "verb_id": 2,
+      "target_id": 10,
+      "iv_id": 2,
+      "it_id": 10,
+      "is_null": false
+    },
+    {
+      "id": "triplet:3",
+      "type": "triplet",
+      "class_id": 3,
+      "name": "grasper-grasp-cystic_artery",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "cystic_artery",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 3,
+      "iv_id": 0,
+      "it_id": 3,
+      "is_null": false
+    },
+    {
+      "id": "triplet:4",
+      "type": "triplet",
+      "class_id": 4,
+      "name": "grasper-grasp-cystic_duct",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "cystic_duct",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 2,
+      "iv_id": 0,
+      "it_id": 2,
+      "is_null": false
+    },
+    {
+      "id": "triplet:5",
+      "type": "triplet",
+      "class_id": 5,
+      "name": "grasper-grasp-cystic_pedicle",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "cystic_pedicle",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 4,
+      "iv_id": 0,
+      "it_id": 4,
+      "is_null": false
+    },
+    {
+      "id": "triplet:6",
+      "type": "triplet",
+      "class_id": 6,
+      "name": "grasper-grasp-cystic_plate",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "cystic_plate",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 1,
+      "iv_id": 0,
+      "it_id": 1,
+      "is_null": false
+    },
+    {
+      "id": "triplet:7",
+      "type": "triplet",
+      "class_id": 7,
+      "name": "grasper-grasp-gallbladder",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "gallbladder",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 0,
+      "iv_id": 0,
+      "it_id": 0,
+      "is_null": false
+    },
+    {
+      "id": "triplet:8",
+      "type": "triplet",
+      "class_id": 8,
+      "name": "grasper-grasp-gut",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "gut",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 12,
+      "iv_id": 0,
+      "it_id": 12,
+      "is_null": false
+    },
+    {
+      "id": "triplet:9",
+      "type": "triplet",
+      "class_id": 9,
+      "name": "grasper-grasp-liver",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "liver",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 8,
+      "iv_id": 0,
+      "it_id": 8,
+      "is_null": false
+    },
+    {
+      "id": "triplet:10",
+      "type": "triplet",
+      "class_id": 10,
+      "name": "grasper-grasp-omentum",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "omentum",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 10,
+      "iv_id": 0,
+      "it_id": 10,
+      "is_null": false
+    },
+    {
+      "id": "triplet:11",
+      "type": "triplet",
+      "class_id": 11,
+      "name": "grasper-grasp-peritoneum",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "peritoneum",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 11,
+      "iv_id": 0,
+      "it_id": 11,
+      "is_null": false
+    },
+    {
+      "id": "triplet:12",
+      "type": "triplet",
+      "class_id": 12,
+      "name": "grasper-grasp-specimen_bag",
+      "instrument": "grasper",
+      "verb": "grasp",
+      "target": "specimen_bag",
+      "instrument_id": 0,
+      "verb_id": 0,
+      "target_id": 13,
+      "iv_id": 0,
+      "it_id": 13,
+      "is_null": false
+    },
+    {
+      "id": "triplet:13",
+      "type": "triplet",
+      "class_id": 13,
+      "name": "grasper-pack-gallbladder",
+      "instrument": "grasper",
+      "verb": "pack",
+      "target": "gallbladder",
+      "instrument_id": 0,
+      "verb_id": 8,
+      "target_id": 0,
+      "iv_id": 8,
+      "it_id": 0,
+      "is_null": false
+    },
+    {
+      "id": "triplet:14",
+      "type": "triplet",
+      "class_id": 14,
+      "name": "grasper-retract-cystic_duct",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "cystic_duct",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 2,
+      "iv_id": 1,
+      "it_id": 2,
+      "is_null": false
+    },
+    {
+      "id": "triplet:15",
+      "type": "triplet",
+      "class_id": 15,
+      "name": "grasper-retract-cystic_pedicle",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "cystic_pedicle",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 4,
+      "iv_id": 1,
+      "it_id": 4,
+      "is_null": false
+    },
+    {
+      "id": "triplet:16",
+      "type": "triplet",
+      "class_id": 16,
+      "name": "grasper-retract-cystic_plate",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "cystic_plate",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 1,
+      "iv_id": 1,
+      "it_id": 1,
+      "is_null": false
+    },
+    {
+      "id": "triplet:17",
+      "type": "triplet",
+      "class_id": 17,
+      "name": "grasper-retract-gallbladder",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "gallbladder",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 0,
+      "iv_id": 1,
+      "it_id": 0,
+      "is_null": false
+    },
+    {
+      "id": "triplet:18",
+      "type": "triplet",
+      "class_id": 18,
+      "name": "grasper-retract-gut",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "gut",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 12,
+      "iv_id": 1,
+      "it_id": 12,
+      "is_null": false
+    },
+    {
+      "id": "triplet:19",
+      "type": "triplet",
+      "class_id": 19,
+      "name": "grasper-retract-liver",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "liver",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 8,
+      "iv_id": 1,
+      "it_id": 8,
+      "is_null": false
+    },
+    {
+      "id": "triplet:20",
+      "type": "triplet",
+      "class_id": 20,
+      "name": "grasper-retract-omentum",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "omentum",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 10,
+      "iv_id": 1,
+      "it_id": 10,
+      "is_null": false
+    },
+    {
+      "id": "triplet:21",
+      "type": "triplet",
+      "class_id": 21,
+      "name": "grasper-retract-peritoneum",
+      "instrument": "grasper",
+      "verb": "retract",
+      "target": "peritoneum",
+      "instrument_id": 0,
+      "verb_id": 1,
+      "target_id": 11,
+      "iv_id": 1,
+      "it_id": 11,
+      "is_null": false
+    },
+    {
+      "id": "triplet:22",
+      "type": "triplet",
+      "class_id": 22,
+      "name": "bipolar-coagulate-abdominal_wall_cavity",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "abdominal_wall_cavity",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 7,
+      "iv_id": 13,
+      "it_id": 22,
+      "is_null": false
+    },
+    {
+      "id": "triplet:23",
+      "type": "triplet",
+      "class_id": 23,
+      "name": "bipolar-coagulate-blood_vessel",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "blood_vessel",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 5,
+      "iv_id": 13,
+      "it_id": 20,
+      "is_null": false
+    },
+    {
+      "id": "triplet:24",
+      "type": "triplet",
+      "class_id": 24,
+      "name": "bipolar-coagulate-cystic_artery",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "cystic_artery",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 3,
+      "iv_id": 13,
+      "it_id": 18,
+      "is_null": false
+    },
+    {
+      "id": "triplet:25",
+      "type": "triplet",
+      "class_id": 25,
+      "name": "bipolar-coagulate-cystic_duct",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "cystic_duct",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 2,
+      "iv_id": 13,
+      "it_id": 17,
+      "is_null": false
+    },
+    {
+      "id": "triplet:26",
+      "type": "triplet",
+      "class_id": 26,
+      "name": "bipolar-coagulate-cystic_pedicle",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "cystic_pedicle",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 4,
+      "iv_id": 13,
+      "it_id": 19,
+      "is_null": false
+    },
+    {
+      "id": "triplet:27",
+      "type": "triplet",
+      "class_id": 27,
+      "name": "bipolar-coagulate-cystic_plate",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "cystic_plate",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 1,
+      "iv_id": 13,
+      "it_id": 16,
+      "is_null": false
+    },
+    {
+      "id": "triplet:28",
+      "type": "triplet",
+      "class_id": 28,
+      "name": "bipolar-coagulate-gallbladder",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "gallbladder",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 0,
+      "iv_id": 13,
+      "it_id": 15,
+      "is_null": false
+    },
+    {
+      "id": "triplet:29",
+      "type": "triplet",
+      "class_id": 29,
+      "name": "bipolar-coagulate-liver",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "liver",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 8,
+      "iv_id": 13,
+      "it_id": 23,
+      "is_null": false
+    },
+    {
+      "id": "triplet:30",
+      "type": "triplet",
+      "class_id": 30,
+      "name": "bipolar-coagulate-omentum",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "omentum",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 10,
+      "iv_id": 13,
+      "it_id": 25,
+      "is_null": false
+    },
+    {
+      "id": "triplet:31",
+      "type": "triplet",
+      "class_id": 31,
+      "name": "bipolar-coagulate-peritoneum",
+      "instrument": "bipolar",
+      "verb": "coagulate",
+      "target": "peritoneum",
+      "instrument_id": 1,
+      "verb_id": 3,
+      "target_id": 11,
+      "iv_id": 13,
+      "it_id": 26,
+      "is_null": false
+    },
+    {
+      "id": "triplet:32",
+      "type": "triplet",
+      "class_id": 32,
+      "name": "bipolar-dissect-adhesion",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "adhesion",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 9,
+      "iv_id": 12,
+      "it_id": 24,
+      "is_null": false
+    },
+    {
+      "id": "triplet:33",
+      "type": "triplet",
+      "class_id": 33,
+      "name": "bipolar-dissect-cystic_artery",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "cystic_artery",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 3,
+      "iv_id": 12,
+      "it_id": 18,
+      "is_null": false
+    },
+    {
+      "id": "triplet:34",
+      "type": "triplet",
+      "class_id": 34,
+      "name": "bipolar-dissect-cystic_duct",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "cystic_duct",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 2,
+      "iv_id": 12,
+      "it_id": 17,
+      "is_null": false
+    },
+    {
+      "id": "triplet:35",
+      "type": "triplet",
+      "class_id": 35,
+      "name": "bipolar-dissect-cystic_plate",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "cystic_plate",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 1,
+      "iv_id": 12,
+      "it_id": 16,
+      "is_null": false
+    },
+    {
+      "id": "triplet:36",
+      "type": "triplet",
+      "class_id": 36,
+      "name": "bipolar-dissect-gallbladder",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "gallbladder",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 0,
+      "iv_id": 12,
+      "it_id": 15,
+      "is_null": false
+    },
+    {
+      "id": "triplet:37",
+      "type": "triplet",
+      "class_id": 37,
+      "name": "bipolar-dissect-omentum",
+      "instrument": "bipolar",
+      "verb": "dissect",
+      "target": "omentum",
+      "instrument_id": 1,
+      "verb_id": 2,
+      "target_id": 10,
+      "iv_id": 12,
+      "it_id": 25,
+      "is_null": false
+    },
+    {
+      "id": "triplet:38",
+      "type": "triplet",
+      "class_id": 38,
+      "name": "bipolar-grasp-cystic_plate",
+      "instrument": "bipolar",
+      "verb": "grasp",
+      "target": "cystic_plate",
+      "instrument_id": 1,
+      "verb_id": 0,
+      "target_id": 1,
+      "iv_id": 10,
+      "it_id": 16,
+      "is_null": false
+    },
+    {
+      "id": "triplet:39",
+      "type": "triplet",
+      "class_id": 39,
+      "name": "bipolar-grasp-liver",
+      "instrument": "bipolar",
+      "verb": "grasp",
+      "target": "liver",
+      "instrument_id": 1,
+      "verb_id": 0,
+      "target_id": 8,
+      "iv_id": 10,
+      "it_id": 23,
+      "is_null": false
+    },
+    {
+      "id": "triplet:40",
+      "type": "triplet",
+      "class_id": 40,
+      "name": "bipolar-grasp-specimen_bag",
+      "instrument": "bipolar",
+      "verb": "grasp",
+      "target": "specimen_bag",
+      "instrument_id": 1,
+      "verb_id": 0,
+      "target_id": 13,
+      "iv_id": 10,
+      "it_id": 28,
+      "is_null": false
+    },
+    {
+      "id": "triplet:41",
+      "type": "triplet",
+      "class_id": 41,
+      "name": "bipolar-retract-cystic_duct",
+      "instrument": "bipolar",
+      "verb": "retract",
+      "target": "cystic_duct",
+      "instrument_id": 1,
+      "verb_id": 1,
+      "target_id": 2,
+      "iv_id": 11,
+      "it_id": 17,
+      "is_null": false
+    },
+    {
+      "id": "triplet:42",
+      "type": "triplet",
+      "class_id": 42,
+      "name": "bipolar-retract-cystic_pedicle",
+      "instrument": "bipolar",
+      "verb": "retract",
+      "target": "cystic_pedicle",
+      "instrument_id": 1,
+      "verb_id": 1,
+      "target_id": 4,
+      "iv_id": 11,
+      "it_id": 19,
+      "is_null": false
+    },
+    {
+      "id": "triplet:43",
+      "type": "triplet",
+      "class_id": 43,
+      "name": "bipolar-retract-gallbladder",
+      "instrument": "bipolar",
+      "verb": "retract",
+      "target": "gallbladder",
+      "instrument_id": 1,
+      "verb_id": 1,
+      "target_id": 0,
+      "iv_id": 11,
+      "it_id": 15,
+      "is_null": false
+    },
+    {
+      "id": "triplet:44",
+      "type": "triplet",
+      "class_id": 44,
+      "name": "bipolar-retract-liver",
+      "instrument": "bipolar",
+      "verb": "retract",
+      "target": "liver",
+      "instrument_id": 1,
+      "verb_id": 1,
+      "target_id": 8,
+      "iv_id": 11,
+      "it_id": 23,
+      "is_null": false
+    },
+    {
+      "id": "triplet:45",
+      "type": "triplet",
+      "class_id": 45,
+      "name": "bipolar-retract-omentum",
+      "instrument": "bipolar",
+      "verb": "retract",
+      "target": "omentum",
+      "instrument_id": 1,
+      "verb_id": 1,
+      "target_id": 10,
+      "iv_id": 11,
+      "it_id": 25,
+      "is_null": false
+    },
+    {
+      "id": "triplet:46",
+      "type": "triplet",
+      "class_id": 46,
+      "name": "hook-coagulate-blood_vessel",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "blood_vessel",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 5,
+      "iv_id": 23,
+      "it_id": 35,
+      "is_null": false
+    },
+    {
+      "id": "triplet:47",
+      "type": "triplet",
+      "class_id": 47,
+      "name": "hook-coagulate-cystic_artery",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "cystic_artery",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 3,
+      "iv_id": 23,
+      "it_id": 33,
+      "is_null": false
+    },
+    {
+      "id": "triplet:48",
+      "type": "triplet",
+      "class_id": 48,
+      "name": "hook-coagulate-cystic_duct",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "cystic_duct",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 2,
+      "iv_id": 23,
+      "it_id": 32,
+      "is_null": false
+    },
+    {
+      "id": "triplet:49",
+      "type": "triplet",
+      "class_id": 49,
+      "name": "hook-coagulate-cystic_pedicle",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "cystic_pedicle",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 4,
+      "iv_id": 23,
+      "it_id": 34,
+      "is_null": false
+    },
+    {
+      "id": "triplet:50",
+      "type": "triplet",
+      "class_id": 50,
+      "name": "hook-coagulate-cystic_plate",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "cystic_plate",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 1,
+      "iv_id": 23,
+      "it_id": 31,
+      "is_null": false
+    },
+    {
+      "id": "triplet:51",
+      "type": "triplet",
+      "class_id": 51,
+      "name": "hook-coagulate-gallbladder",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "gallbladder",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 0,
+      "iv_id": 23,
+      "it_id": 30,
+      "is_null": false
+    },
+    {
+      "id": "triplet:52",
+      "type": "triplet",
+      "class_id": 52,
+      "name": "hook-coagulate-liver",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "liver",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 8,
+      "iv_id": 23,
+      "it_id": 38,
+      "is_null": false
+    },
+    {
+      "id": "triplet:53",
+      "type": "triplet",
+      "class_id": 53,
+      "name": "hook-coagulate-omentum",
+      "instrument": "hook",
+      "verb": "coagulate",
+      "target": "omentum",
+      "instrument_id": 2,
+      "verb_id": 3,
+      "target_id": 10,
+      "iv_id": 23,
+      "it_id": 40,
+      "is_null": false
+    },
+    {
+      "id": "triplet:54",
+      "type": "triplet",
+      "class_id": 54,
+      "name": "hook-cut-blood_vessel",
+      "instrument": "hook",
+      "verb": "cut",
+      "target": "blood_vessel",
+      "instrument_id": 2,
+      "verb_id": 5,
+      "target_id": 5,
+      "iv_id": 25,
+      "it_id": 35,
+      "is_null": false
+    },
+    {
+      "id": "triplet:55",
+      "type": "triplet",
+      "class_id": 55,
+      "name": "hook-cut-peritoneum",
+      "instrument": "hook",
+      "verb": "cut",
+      "target": "peritoneum",
+      "instrument_id": 2,
+      "verb_id": 5,
+      "target_id": 11,
+      "iv_id": 25,
+      "it_id": 41,
+      "is_null": false
+    },
+    {
+      "id": "triplet:56",
+      "type": "triplet",
+      "class_id": 56,
+      "name": "hook-dissect-blood_vessel",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "blood_vessel",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 5,
+      "iv_id": 22,
+      "it_id": 35,
+      "is_null": false
+    },
+    {
+      "id": "triplet:57",
+      "type": "triplet",
+      "class_id": 57,
+      "name": "hook-dissect-cystic_artery",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "cystic_artery",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 3,
+      "iv_id": 22,
+      "it_id": 33,
+      "is_null": false
+    },
+    {
+      "id": "triplet:58",
+      "type": "triplet",
+      "class_id": 58,
+      "name": "hook-dissect-cystic_duct",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "cystic_duct",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 2,
+      "iv_id": 22,
+      "it_id": 32,
+      "is_null": false
+    },
+    {
+      "id": "triplet:59",
+      "type": "triplet",
+      "class_id": 59,
+      "name": "hook-dissect-cystic_plate",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "cystic_plate",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 1,
+      "iv_id": 22,
+      "it_id": 31,
+      "is_null": false
+    },
+    {
+      "id": "triplet:60",
+      "type": "triplet",
+      "class_id": 60,
+      "name": "hook-dissect-gallbladder",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "gallbladder",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 0,
+      "iv_id": 22,
+      "it_id": 30,
+      "is_null": false
+    },
+    {
+      "id": "triplet:61",
+      "type": "triplet",
+      "class_id": 61,
+      "name": "hook-dissect-omentum",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "omentum",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 10,
+      "iv_id": 22,
+      "it_id": 40,
+      "is_null": false
+    },
+    {
+      "id": "triplet:62",
+      "type": "triplet",
+      "class_id": 62,
+      "name": "hook-dissect-peritoneum",
+      "instrument": "hook",
+      "verb": "dissect",
+      "target": "peritoneum",
+      "instrument_id": 2,
+      "verb_id": 2,
+      "target_id": 11,
+      "iv_id": 22,
+      "it_id": 41,
+      "is_null": false
+    },
+    {
+      "id": "triplet:63",
+      "type": "triplet",
+      "class_id": 63,
+      "name": "hook-retract-gallbladder",
+      "instrument": "hook",
+      "verb": "retract",
+      "target": "gallbladder",
+      "instrument_id": 2,
+      "verb_id": 1,
+      "target_id": 0,
+      "iv_id": 21,
+      "it_id": 30,
+      "is_null": false
+    },
+    {
+      "id": "triplet:64",
+      "type": "triplet",
+      "class_id": 64,
+      "name": "hook-retract-liver",
+      "instrument": "hook",
+      "verb": "retract",
+      "target": "liver",
+      "instrument_id": 2,
+      "verb_id": 1,
+      "target_id": 8,
+      "iv_id": 21,
+      "it_id": 38,
+      "is_null": false
+    },
+    {
+      "id": "triplet:65",
+      "type": "triplet",
+      "class_id": 65,
+      "name": "scissors-coagulate-omentum",
+      "instrument": "scissors",
+      "verb": "coagulate",
+      "target": "omentum",
+      "instrument_id": 3,
+      "verb_id": 3,
+      "target_id": 10,
+      "iv_id": 33,
+      "it_id": 55,
+      "is_null": false
+    },
+    {
+      "id": "triplet:66",
+      "type": "triplet",
+      "class_id": 66,
+      "name": "scissors-cut-adhesion",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "adhesion",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 9,
+      "iv_id": 35,
+      "it_id": 54,
+      "is_null": false
+    },
+    {
+      "id": "triplet:67",
+      "type": "triplet",
+      "class_id": 67,
+      "name": "scissors-cut-blood_vessel",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "blood_vessel",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 5,
+      "iv_id": 35,
+      "it_id": 50,
+      "is_null": false
+    },
+    {
+      "id": "triplet:68",
+      "type": "triplet",
+      "class_id": 68,
+      "name": "scissors-cut-cystic_artery",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "cystic_artery",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 3,
+      "iv_id": 35,
+      "it_id": 48,
+      "is_null": false
+    },
+    {
+      "id": "triplet:69",
+      "type": "triplet",
+      "class_id": 69,
+      "name": "scissors-cut-cystic_duct",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "cystic_duct",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 2,
+      "iv_id": 35,
+      "it_id": 47,
+      "is_null": false
+    },
+    {
+      "id": "triplet:70",
+      "type": "triplet",
+      "class_id": 70,
+      "name": "scissors-cut-cystic_plate",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "cystic_plate",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 1,
+      "iv_id": 35,
+      "it_id": 46,
+      "is_null": false
+    },
+    {
+      "id": "triplet:71",
+      "type": "triplet",
+      "class_id": 71,
+      "name": "scissors-cut-liver",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "liver",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 8,
+      "iv_id": 35,
+      "it_id": 53,
+      "is_null": false
+    },
+    {
+      "id": "triplet:72",
+      "type": "triplet",
+      "class_id": 72,
+      "name": "scissors-cut-omentum",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "omentum",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 10,
+      "iv_id": 35,
+      "it_id": 55,
+      "is_null": false
+    },
+    {
+      "id": "triplet:73",
+      "type": "triplet",
+      "class_id": 73,
+      "name": "scissors-cut-peritoneum",
+      "instrument": "scissors",
+      "verb": "cut",
+      "target": "peritoneum",
+      "instrument_id": 3,
+      "verb_id": 5,
+      "target_id": 11,
+      "iv_id": 35,
+      "it_id": 56,
+      "is_null": false
+    },
+    {
+      "id": "triplet:74",
+      "type": "triplet",
+      "class_id": 74,
+      "name": "scissors-dissect-cystic_plate",
+      "instrument": "scissors",
+      "verb": "dissect",
+      "target": "cystic_plate",
+      "instrument_id": 3,
+      "verb_id": 2,
+      "target_id": 1,
+      "iv_id": 32,
+      "it_id": 46,
+      "is_null": false
+    },
+    {
+      "id": "triplet:75",
+      "type": "triplet",
+      "class_id": 75,
+      "name": "scissors-dissect-gallbladder",
+      "instrument": "scissors",
+      "verb": "dissect",
+      "target": "gallbladder",
+      "instrument_id": 3,
+      "verb_id": 2,
+      "target_id": 0,
+      "iv_id": 32,
+      "it_id": 45,
+      "is_null": false
+    },
+    {
+      "id": "triplet:76",
+      "type": "triplet",
+      "class_id": 76,
+      "name": "scissors-dissect-omentum",
+      "instrument": "scissors",
+      "verb": "dissect",
+      "target": "omentum",
+      "instrument_id": 3,
+      "verb_id": 2,
+      "target_id": 10,
+      "iv_id": 32,
+      "it_id": 55,
+      "is_null": false
+    },
+    {
+      "id": "triplet:77",
+      "type": "triplet",
+      "class_id": 77,
+      "name": "clipper-clip-blood_vessel",
+      "instrument": "clipper",
+      "verb": "clip",
+      "target": "blood_vessel",
+      "instrument_id": 4,
+      "verb_id": 4,
+      "target_id": 5,
+      "iv_id": 44,
+      "it_id": 65,
+      "is_null": false
+    },
+    {
+      "id": "triplet:78",
+      "type": "triplet",
+      "class_id": 78,
+      "name": "clipper-clip-cystic_artery",
+      "instrument": "clipper",
+      "verb": "clip",
+      "target": "cystic_artery",
+      "instrument_id": 4,
+      "verb_id": 4,
+      "target_id": 3,
+      "iv_id": 44,
+      "it_id": 63,
+      "is_null": false
+    },
+    {
+      "id": "triplet:79",
+      "type": "triplet",
+      "class_id": 79,
+      "name": "clipper-clip-cystic_duct",
+      "instrument": "clipper",
+      "verb": "clip",
+      "target": "cystic_duct",
+      "instrument_id": 4,
+      "verb_id": 4,
+      "target_id": 2,
+      "iv_id": 44,
+      "it_id": 62,
+      "is_null": false
+    },
+    {
+      "id": "triplet:80",
+      "type": "triplet",
+      "class_id": 80,
+      "name": "clipper-clip-cystic_pedicle",
+      "instrument": "clipper",
+      "verb": "clip",
+      "target": "cystic_pedicle",
+      "instrument_id": 4,
+      "verb_id": 4,
+      "target_id": 4,
+      "iv_id": 44,
+      "it_id": 64,
+      "is_null": false
+    },
+    {
+      "id": "triplet:81",
+      "type": "triplet",
+      "class_id": 81,
+      "name": "clipper-clip-cystic_plate",
+      "instrument": "clipper",
+      "verb": "clip",
+      "target": "cystic_plate",
+      "instrument_id": 4,
+      "verb_id": 4,
+      "target_id": 1,
+      "iv_id": 44,
+      "it_id": 61,
+      "is_null": false
+    },
+    {
+      "id": "triplet:82",
+      "type": "triplet",
+      "class_id": 82,
+      "name": "irrigator-aspirate-fluid",
+      "instrument": "irrigator",
+      "verb": "aspirate",
+      "target": "fluid",
+      "instrument_id": 5,
+      "verb_id": 6,
+      "target_id": 6,
+      "iv_id": 56,
+      "it_id": 81,
+      "is_null": false
+    },
+    {
+      "id": "triplet:83",
+      "type": "triplet",
+      "class_id": 83,
+      "name": "irrigator-dissect-cystic_duct",
+      "instrument": "irrigator",
+      "verb": "dissect",
+      "target": "cystic_duct",
+      "instrument_id": 5,
+      "verb_id": 2,
+      "target_id": 2,
+      "iv_id": 52,
+      "it_id": 77,
+      "is_null": false
+    },
+    {
+      "id": "triplet:84",
+      "type": "triplet",
+      "class_id": 84,
+      "name": "irrigator-dissect-cystic_pedicle",
+      "instrument": "irrigator",
+      "verb": "dissect",
+      "target": "cystic_pedicle",
+      "instrument_id": 5,
+      "verb_id": 2,
+      "target_id": 4,
+      "iv_id": 52,
+      "it_id": 79,
+      "is_null": false
+    },
+    {
+      "id": "triplet:85",
+      "type": "triplet",
+      "class_id": 85,
+      "name": "irrigator-dissect-cystic_plate",
+      "instrument": "irrigator",
+      "verb": "dissect",
+      "target": "cystic_plate",
+      "instrument_id": 5,
+      "verb_id": 2,
+      "target_id": 1,
+      "iv_id": 52,
+      "it_id": 76,
+      "is_null": false
+    },
+    {
+      "id": "triplet:86",
+      "type": "triplet",
+      "class_id": 86,
+      "name": "irrigator-dissect-gallbladder",
+      "instrument": "irrigator",
+      "verb": "dissect",
+      "target": "gallbladder",
+      "instrument_id": 5,
+      "verb_id": 2,
+      "target_id": 0,
+      "iv_id": 52,
+      "it_id": 75,
+      "is_null": false
+    },
+    {
+      "id": "triplet:87",
+      "type": "triplet",
+      "class_id": 87,
+      "name": "irrigator-dissect-omentum",
+      "instrument": "irrigator",
+      "verb": "dissect",
+      "target": "omentum",
+      "instrument_id": 5,
+      "verb_id": 2,
+      "target_id": 10,
+      "iv_id": 52,
+      "it_id": 85,
+      "is_null": false
+    },
+    {
+      "id": "triplet:88",
+      "type": "triplet",
+      "class_id": 88,
+      "name": "irrigator-irrigate-abdominal_wall_cavity",
+      "instrument": "irrigator",
+      "verb": "irrigate",
+      "target": "abdominal_wall_cavity",
+      "instrument_id": 5,
+      "verb_id": 7,
+      "target_id": 7,
+      "iv_id": 57,
+      "it_id": 82,
+      "is_null": false
+    },
+    {
+      "id": "triplet:89",
+      "type": "triplet",
+      "class_id": 89,
+      "name": "irrigator-irrigate-cystic_pedicle",
+      "instrument": "irrigator",
+      "verb": "irrigate",
+      "target": "cystic_pedicle",
+      "instrument_id": 5,
+      "verb_id": 7,
+      "target_id": 4,
+      "iv_id": 57,
+      "it_id": 79,
+      "is_null": false
+    },
+    {
+      "id": "triplet:90",
+      "type": "triplet",
+      "class_id": 90,
+      "name": "irrigator-irrigate-liver",
+      "instrument": "irrigator",
+      "verb": "irrigate",
+      "target": "liver",
+      "instrument_id": 5,
+      "verb_id": 7,
+      "target_id": 8,
+      "iv_id": 57,
+      "it_id": 83,
+      "is_null": false
+    },
+    {
+      "id": "triplet:91",
+      "type": "triplet",
+      "class_id": 91,
+      "name": "irrigator-retract-gallbladder",
+      "instrument": "irrigator",
+      "verb": "retract",
+      "target": "gallbladder",
+      "instrument_id": 5,
+      "verb_id": 1,
+      "target_id": 0,
+      "iv_id": 51,
+      "it_id": 75,
+      "is_null": false
+    },
+    {
+      "id": "triplet:92",
+      "type": "triplet",
+      "class_id": 92,
+      "name": "irrigator-retract-liver",
+      "instrument": "irrigator",
+      "verb": "retract",
+      "target": "liver",
+      "instrument_id": 5,
+      "verb_id": 1,
+      "target_id": 8,
+      "iv_id": 51,
+      "it_id": 83,
+      "is_null": false
+    },
+    {
+      "id": "triplet:93",
+      "type": "triplet",
+      "class_id": 93,
+      "name": "irrigator-retract-omentum",
+      "instrument": "irrigator",
+      "verb": "retract",
+      "target": "omentum",
+      "instrument_id": 5,
+      "verb_id": 1,
+      "target_id": 10,
+      "iv_id": 51,
+      "it_id": 85,
+      "is_null": false
+    },
+    {
+      "id": "triplet:94",
+      "type": "triplet",
+      "class_id": 94,
+      "name": "grasper-null_verb-null_target",
+      "instrument": "grasper",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 0,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 9,
+      "it_id": 14,
+      "is_null": true
+    },
+    {
+      "id": "triplet:95",
+      "type": "triplet",
+      "class_id": 95,
+      "name": "bipolar-null_verb-null_target",
+      "instrument": "bipolar",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 1,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 19,
+      "it_id": 29,
+      "is_null": true
+    },
+    {
+      "id": "triplet:96",
+      "type": "triplet",
+      "class_id": 96,
+      "name": "hook-null_verb-null_target",
+      "instrument": "hook",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 2,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 29,
+      "it_id": 44,
+      "is_null": true
+    },
+    {
+      "id": "triplet:97",
+      "type": "triplet",
+      "class_id": 97,
+      "name": "scissors-null_verb-null_target",
+      "instrument": "scissors",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 3,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 39,
+      "it_id": 59,
+      "is_null": true
+    },
+    {
+      "id": "triplet:98",
+      "type": "triplet",
+      "class_id": 98,
+      "name": "clipper-null_verb-null_target",
+      "instrument": "clipper",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 4,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 49,
+      "it_id": 74,
+      "is_null": true
+    },
+    {
+      "id": "triplet:99",
+      "type": "triplet",
+      "class_id": 99,
+      "name": "irrigator-null_verb-null_target",
+      "instrument": "irrigator",
+      "verb": "null_verb",
+      "target": "null_target",
+      "instrument_id": 5,
+      "verb_id": 9,
+      "target_id": 14,
+      "iv_id": 59,
+      "it_id": 89,
+      "is_null": true
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge:0",
+      "source": "triplet:0",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:1",
+      "source": "triplet:0",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:2",
+      "source": "triplet:0",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:3",
+      "source": "triplet:1",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:4",
+      "source": "triplet:1",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:5",
+      "source": "triplet:1",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:6",
+      "source": "triplet:2",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:7",
+      "source": "triplet:2",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:8",
+      "source": "triplet:2",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:9",
+      "source": "triplet:3",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:10",
+      "source": "triplet:3",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:11",
+      "source": "triplet:3",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:12",
+      "source": "triplet:4",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:13",
+      "source": "triplet:4",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:14",
+      "source": "triplet:4",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:15",
+      "source": "triplet:5",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:16",
+      "source": "triplet:5",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:17",
+      "source": "triplet:5",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:18",
+      "source": "triplet:6",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:19",
+      "source": "triplet:6",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:20",
+      "source": "triplet:6",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:21",
+      "source": "triplet:7",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:22",
+      "source": "triplet:7",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:23",
+      "source": "triplet:7",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:24",
+      "source": "triplet:8",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:25",
+      "source": "triplet:8",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:26",
+      "source": "triplet:8",
+      "relation": "acts_on",
+      "target": "target:12"
+    },
+    {
+      "id": "edge:27",
+      "source": "triplet:9",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:28",
+      "source": "triplet:9",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:29",
+      "source": "triplet:9",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:30",
+      "source": "triplet:10",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:31",
+      "source": "triplet:10",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:32",
+      "source": "triplet:10",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:33",
+      "source": "triplet:11",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:34",
+      "source": "triplet:11",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:35",
+      "source": "triplet:11",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:36",
+      "source": "triplet:12",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:37",
+      "source": "triplet:12",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:38",
+      "source": "triplet:12",
+      "relation": "acts_on",
+      "target": "target:13"
+    },
+    {
+      "id": "edge:39",
+      "source": "triplet:13",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:40",
+      "source": "triplet:13",
+      "relation": "has_action",
+      "target": "verb:8"
+    },
+    {
+      "id": "edge:41",
+      "source": "triplet:13",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:42",
+      "source": "triplet:14",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:43",
+      "source": "triplet:14",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:44",
+      "source": "triplet:14",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:45",
+      "source": "triplet:15",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:46",
+      "source": "triplet:15",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:47",
+      "source": "triplet:15",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:48",
+      "source": "triplet:16",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:49",
+      "source": "triplet:16",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:50",
+      "source": "triplet:16",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:51",
+      "source": "triplet:17",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:52",
+      "source": "triplet:17",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:53",
+      "source": "triplet:17",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:54",
+      "source": "triplet:18",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:55",
+      "source": "triplet:18",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:56",
+      "source": "triplet:18",
+      "relation": "acts_on",
+      "target": "target:12"
+    },
+    {
+      "id": "edge:57",
+      "source": "triplet:19",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:58",
+      "source": "triplet:19",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:59",
+      "source": "triplet:19",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:60",
+      "source": "triplet:20",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:61",
+      "source": "triplet:20",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:62",
+      "source": "triplet:20",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:63",
+      "source": "triplet:21",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:64",
+      "source": "triplet:21",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:65",
+      "source": "triplet:21",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:66",
+      "source": "triplet:22",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:67",
+      "source": "triplet:22",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:68",
+      "source": "triplet:22",
+      "relation": "acts_on",
+      "target": "target:7"
+    },
+    {
+      "id": "edge:69",
+      "source": "triplet:23",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:70",
+      "source": "triplet:23",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:71",
+      "source": "triplet:23",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:72",
+      "source": "triplet:24",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:73",
+      "source": "triplet:24",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:74",
+      "source": "triplet:24",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:75",
+      "source": "triplet:25",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:76",
+      "source": "triplet:25",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:77",
+      "source": "triplet:25",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:78",
+      "source": "triplet:26",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:79",
+      "source": "triplet:26",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:80",
+      "source": "triplet:26",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:81",
+      "source": "triplet:27",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:82",
+      "source": "triplet:27",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:83",
+      "source": "triplet:27",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:84",
+      "source": "triplet:28",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:85",
+      "source": "triplet:28",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:86",
+      "source": "triplet:28",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:87",
+      "source": "triplet:29",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:88",
+      "source": "triplet:29",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:89",
+      "source": "triplet:29",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:90",
+      "source": "triplet:30",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:91",
+      "source": "triplet:30",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:92",
+      "source": "triplet:30",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:93",
+      "source": "triplet:31",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:94",
+      "source": "triplet:31",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:95",
+      "source": "triplet:31",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:96",
+      "source": "triplet:32",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:97",
+      "source": "triplet:32",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:98",
+      "source": "triplet:32",
+      "relation": "acts_on",
+      "target": "target:9"
+    },
+    {
+      "id": "edge:99",
+      "source": "triplet:33",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:100",
+      "source": "triplet:33",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:101",
+      "source": "triplet:33",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:102",
+      "source": "triplet:34",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:103",
+      "source": "triplet:34",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:104",
+      "source": "triplet:34",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:105",
+      "source": "triplet:35",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:106",
+      "source": "triplet:35",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:107",
+      "source": "triplet:35",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:108",
+      "source": "triplet:36",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:109",
+      "source": "triplet:36",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:110",
+      "source": "triplet:36",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:111",
+      "source": "triplet:37",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:112",
+      "source": "triplet:37",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:113",
+      "source": "triplet:37",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:114",
+      "source": "triplet:38",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:115",
+      "source": "triplet:38",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:116",
+      "source": "triplet:38",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:117",
+      "source": "triplet:39",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:118",
+      "source": "triplet:39",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:119",
+      "source": "triplet:39",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:120",
+      "source": "triplet:40",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:121",
+      "source": "triplet:40",
+      "relation": "has_action",
+      "target": "verb:0"
+    },
+    {
+      "id": "edge:122",
+      "source": "triplet:40",
+      "relation": "acts_on",
+      "target": "target:13"
+    },
+    {
+      "id": "edge:123",
+      "source": "triplet:41",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:124",
+      "source": "triplet:41",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:125",
+      "source": "triplet:41",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:126",
+      "source": "triplet:42",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:127",
+      "source": "triplet:42",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:128",
+      "source": "triplet:42",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:129",
+      "source": "triplet:43",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:130",
+      "source": "triplet:43",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:131",
+      "source": "triplet:43",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:132",
+      "source": "triplet:44",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:133",
+      "source": "triplet:44",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:134",
+      "source": "triplet:44",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:135",
+      "source": "triplet:45",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:136",
+      "source": "triplet:45",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:137",
+      "source": "triplet:45",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:138",
+      "source": "triplet:46",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:139",
+      "source": "triplet:46",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:140",
+      "source": "triplet:46",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:141",
+      "source": "triplet:47",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:142",
+      "source": "triplet:47",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:143",
+      "source": "triplet:47",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:144",
+      "source": "triplet:48",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:145",
+      "source": "triplet:48",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:146",
+      "source": "triplet:48",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:147",
+      "source": "triplet:49",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:148",
+      "source": "triplet:49",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:149",
+      "source": "triplet:49",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:150",
+      "source": "triplet:50",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:151",
+      "source": "triplet:50",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:152",
+      "source": "triplet:50",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:153",
+      "source": "triplet:51",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:154",
+      "source": "triplet:51",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:155",
+      "source": "triplet:51",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:156",
+      "source": "triplet:52",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:157",
+      "source": "triplet:52",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:158",
+      "source": "triplet:52",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:159",
+      "source": "triplet:53",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:160",
+      "source": "triplet:53",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:161",
+      "source": "triplet:53",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:162",
+      "source": "triplet:54",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:163",
+      "source": "triplet:54",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:164",
+      "source": "triplet:54",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:165",
+      "source": "triplet:55",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:166",
+      "source": "triplet:55",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:167",
+      "source": "triplet:55",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:168",
+      "source": "triplet:56",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:169",
+      "source": "triplet:56",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:170",
+      "source": "triplet:56",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:171",
+      "source": "triplet:57",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:172",
+      "source": "triplet:57",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:173",
+      "source": "triplet:57",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:174",
+      "source": "triplet:58",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:175",
+      "source": "triplet:58",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:176",
+      "source": "triplet:58",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:177",
+      "source": "triplet:59",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:178",
+      "source": "triplet:59",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:179",
+      "source": "triplet:59",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:180",
+      "source": "triplet:60",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:181",
+      "source": "triplet:60",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:182",
+      "source": "triplet:60",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:183",
+      "source": "triplet:61",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:184",
+      "source": "triplet:61",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:185",
+      "source": "triplet:61",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:186",
+      "source": "triplet:62",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:187",
+      "source": "triplet:62",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:188",
+      "source": "triplet:62",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:189",
+      "source": "triplet:63",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:190",
+      "source": "triplet:63",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:191",
+      "source": "triplet:63",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:192",
+      "source": "triplet:64",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:193",
+      "source": "triplet:64",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:194",
+      "source": "triplet:64",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:195",
+      "source": "triplet:65",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:196",
+      "source": "triplet:65",
+      "relation": "has_action",
+      "target": "verb:3"
+    },
+    {
+      "id": "edge:197",
+      "source": "triplet:65",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:198",
+      "source": "triplet:66",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:199",
+      "source": "triplet:66",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:200",
+      "source": "triplet:66",
+      "relation": "acts_on",
+      "target": "target:9"
+    },
+    {
+      "id": "edge:201",
+      "source": "triplet:67",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:202",
+      "source": "triplet:67",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:203",
+      "source": "triplet:67",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:204",
+      "source": "triplet:68",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:205",
+      "source": "triplet:68",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:206",
+      "source": "triplet:68",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:207",
+      "source": "triplet:69",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:208",
+      "source": "triplet:69",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:209",
+      "source": "triplet:69",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:210",
+      "source": "triplet:70",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:211",
+      "source": "triplet:70",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:212",
+      "source": "triplet:70",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:213",
+      "source": "triplet:71",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:214",
+      "source": "triplet:71",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:215",
+      "source": "triplet:71",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:216",
+      "source": "triplet:72",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:217",
+      "source": "triplet:72",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:218",
+      "source": "triplet:72",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:219",
+      "source": "triplet:73",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:220",
+      "source": "triplet:73",
+      "relation": "has_action",
+      "target": "verb:5"
+    },
+    {
+      "id": "edge:221",
+      "source": "triplet:73",
+      "relation": "acts_on",
+      "target": "target:11"
+    },
+    {
+      "id": "edge:222",
+      "source": "triplet:74",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:223",
+      "source": "triplet:74",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:224",
+      "source": "triplet:74",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:225",
+      "source": "triplet:75",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:226",
+      "source": "triplet:75",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:227",
+      "source": "triplet:75",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:228",
+      "source": "triplet:76",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:229",
+      "source": "triplet:76",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:230",
+      "source": "triplet:76",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:231",
+      "source": "triplet:77",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:232",
+      "source": "triplet:77",
+      "relation": "has_action",
+      "target": "verb:4"
+    },
+    {
+      "id": "edge:233",
+      "source": "triplet:77",
+      "relation": "acts_on",
+      "target": "target:5"
+    },
+    {
+      "id": "edge:234",
+      "source": "triplet:78",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:235",
+      "source": "triplet:78",
+      "relation": "has_action",
+      "target": "verb:4"
+    },
+    {
+      "id": "edge:236",
+      "source": "triplet:78",
+      "relation": "acts_on",
+      "target": "target:3"
+    },
+    {
+      "id": "edge:237",
+      "source": "triplet:79",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:238",
+      "source": "triplet:79",
+      "relation": "has_action",
+      "target": "verb:4"
+    },
+    {
+      "id": "edge:239",
+      "source": "triplet:79",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:240",
+      "source": "triplet:80",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:241",
+      "source": "triplet:80",
+      "relation": "has_action",
+      "target": "verb:4"
+    },
+    {
+      "id": "edge:242",
+      "source": "triplet:80",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:243",
+      "source": "triplet:81",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:244",
+      "source": "triplet:81",
+      "relation": "has_action",
+      "target": "verb:4"
+    },
+    {
+      "id": "edge:245",
+      "source": "triplet:81",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:246",
+      "source": "triplet:82",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:247",
+      "source": "triplet:82",
+      "relation": "has_action",
+      "target": "verb:6"
+    },
+    {
+      "id": "edge:248",
+      "source": "triplet:82",
+      "relation": "acts_on",
+      "target": "target:6"
+    },
+    {
+      "id": "edge:249",
+      "source": "triplet:83",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:250",
+      "source": "triplet:83",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:251",
+      "source": "triplet:83",
+      "relation": "acts_on",
+      "target": "target:2"
+    },
+    {
+      "id": "edge:252",
+      "source": "triplet:84",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:253",
+      "source": "triplet:84",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:254",
+      "source": "triplet:84",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:255",
+      "source": "triplet:85",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:256",
+      "source": "triplet:85",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:257",
+      "source": "triplet:85",
+      "relation": "acts_on",
+      "target": "target:1"
+    },
+    {
+      "id": "edge:258",
+      "source": "triplet:86",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:259",
+      "source": "triplet:86",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:260",
+      "source": "triplet:86",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:261",
+      "source": "triplet:87",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:262",
+      "source": "triplet:87",
+      "relation": "has_action",
+      "target": "verb:2"
+    },
+    {
+      "id": "edge:263",
+      "source": "triplet:87",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:264",
+      "source": "triplet:88",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:265",
+      "source": "triplet:88",
+      "relation": "has_action",
+      "target": "verb:7"
+    },
+    {
+      "id": "edge:266",
+      "source": "triplet:88",
+      "relation": "acts_on",
+      "target": "target:7"
+    },
+    {
+      "id": "edge:267",
+      "source": "triplet:89",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:268",
+      "source": "triplet:89",
+      "relation": "has_action",
+      "target": "verb:7"
+    },
+    {
+      "id": "edge:269",
+      "source": "triplet:89",
+      "relation": "acts_on",
+      "target": "target:4"
+    },
+    {
+      "id": "edge:270",
+      "source": "triplet:90",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:271",
+      "source": "triplet:90",
+      "relation": "has_action",
+      "target": "verb:7"
+    },
+    {
+      "id": "edge:272",
+      "source": "triplet:90",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:273",
+      "source": "triplet:91",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:274",
+      "source": "triplet:91",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:275",
+      "source": "triplet:91",
+      "relation": "acts_on",
+      "target": "target:0"
+    },
+    {
+      "id": "edge:276",
+      "source": "triplet:92",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:277",
+      "source": "triplet:92",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:278",
+      "source": "triplet:92",
+      "relation": "acts_on",
+      "target": "target:8"
+    },
+    {
+      "id": "edge:279",
+      "source": "triplet:93",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:280",
+      "source": "triplet:93",
+      "relation": "has_action",
+      "target": "verb:1"
+    },
+    {
+      "id": "edge:281",
+      "source": "triplet:93",
+      "relation": "acts_on",
+      "target": "target:10"
+    },
+    {
+      "id": "edge:282",
+      "source": "triplet:94",
+      "relation": "uses_instrument",
+      "target": "instrument:0"
+    },
+    {
+      "id": "edge:283",
+      "source": "triplet:94",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:284",
+      "source": "triplet:94",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:285",
+      "source": "triplet:95",
+      "relation": "uses_instrument",
+      "target": "instrument:1"
+    },
+    {
+      "id": "edge:286",
+      "source": "triplet:95",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:287",
+      "source": "triplet:95",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:288",
+      "source": "triplet:96",
+      "relation": "uses_instrument",
+      "target": "instrument:2"
+    },
+    {
+      "id": "edge:289",
+      "source": "triplet:96",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:290",
+      "source": "triplet:96",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:291",
+      "source": "triplet:97",
+      "relation": "uses_instrument",
+      "target": "instrument:3"
+    },
+    {
+      "id": "edge:292",
+      "source": "triplet:97",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:293",
+      "source": "triplet:97",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:294",
+      "source": "triplet:98",
+      "relation": "uses_instrument",
+      "target": "instrument:4"
+    },
+    {
+      "id": "edge:295",
+      "source": "triplet:98",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:296",
+      "source": "triplet:98",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:297",
+      "source": "triplet:99",
+      "relation": "uses_instrument",
+      "target": "instrument:5"
+    },
+    {
+      "id": "edge:298",
+      "source": "triplet:99",
+      "relation": "has_action",
+      "target": "verb:9"
+    },
+    {
+      "id": "edge:299",
+      "source": "triplet:99",
+      "relation": "acts_on",
+      "target": "target:14"
+    },
+    {
+      "id": "edge:300",
+      "source": "instrument:0",
+      "relation": "supports_action",
+      "target": "verb:0",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:301",
+      "source": "instrument:0",
+      "relation": "supports_action",
+      "target": "verb:1",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:302",
+      "source": "instrument:1",
+      "relation": "supports_action",
+      "target": "verb:3",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:303",
+      "source": "instrument:1",
+      "relation": "supports_action",
+      "target": "verb:2",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:304",
+      "source": "instrument:1",
+      "relation": "supports_action",
+      "target": "verb:0",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:305",
+      "source": "instrument:1",
+      "relation": "supports_action",
+      "target": "verb:1",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:306",
+      "source": "instrument:2",
+      "relation": "supports_action",
+      "target": "verb:2",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:307",
+      "source": "instrument:2",
+      "relation": "supports_action",
+      "target": "verb:5",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:308",
+      "source": "instrument:2",
+      "relation": "supports_action",
+      "target": "verb:3",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:309",
+      "source": "instrument:3",
+      "relation": "supports_action",
+      "target": "verb:5",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:310",
+      "source": "instrument:3",
+      "relation": "supports_action",
+      "target": "verb:2",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:311",
+      "source": "instrument:4",
+      "relation": "supports_action",
+      "target": "verb:4",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:312",
+      "source": "instrument:5",
+      "relation": "supports_action",
+      "target": "verb:6",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:313",
+      "source": "instrument:5",
+      "relation": "supports_action",
+      "target": "verb:7",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:314",
+      "source": "instrument:5",
+      "relation": "supports_action",
+      "target": "verb:2",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    },
+    {
+      "id": "edge:315",
+      "source": "instrument:5",
+      "relation": "supports_action",
+      "target": "verb:1",
+      "metadata": {
+        "source": "surgical_knowledge.json"
+      }
+    }
+  ]
+}

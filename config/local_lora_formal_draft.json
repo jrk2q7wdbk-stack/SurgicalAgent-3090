@@ -1,0 +1,70 @@
+{
+  "status": "draft_not_authorized_for_execution",
+  "prerequisites": {
+    "stage5_cuda_probe": "passed",
+    "stage5_smoke": "superseded_by_clean_preflight",
+    "fp16_root_cause": "default AMP initial scale overflow; updates were skipped until scale fell",
+    "clean_preflight": "passed_at_initial_scale_8192_with_no_nonfinite_or_skipped_steps",
+    "required_before_formal_training": [
+      "freeze the training-data audit hashes and reviewer decisions",
+      "do not use the frozen test split for checkpoint selection"
+    ]
+  },
+  "model": {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "local_path": "models/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "license": "Apache-2.0"
+  },
+  "data": {
+    "train": "artifacts/local_training/train.qwen_tools.jsonl",
+    "validation": "artifacts/local_training/validation.qwen_tools.jsonl",
+    "test_policy": "frozen; evaluate once after protocol and checkpoint are fixed",
+    "train_samples": 7610,
+    "validation_samples": 1100,
+    "max_length": 2048,
+    "overlength_policy": "filter_whole_sample_and_report_by_question_type; current filtered count is zero",
+    "model_evidence_schema": "surgical-agent-model-evidence/v2",
+    "output_protocol": "surgical-agent-output/v2",
+    "assistant_only_loss": true
+  },
+  "training": {
+    "method": "fp16_lora",
+    "epochs": 3,
+    "estimated_optimizer_steps": 2856,
+    "per_device_train_batch_size": 1,
+    "per_device_eval_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "gradient_checkpointing": true,
+    "learning_rate": 0.00005,
+    "amp_initial_scale": 8192,
+    "amp_dynamic_scaling": true,
+    "amp_runner_requirement": "Accelerate GradScalerKwargs(init_scale=8192); do not use the Trainer default 65536 scale",
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+    "seed": 20261102,
+    "eval_strategy": "steps",
+    "eval_steps": 200,
+    "validation_generation_subset": "fixed stratified validation subset; never test",
+    "validation_generation_limit": 80,
+    "save_steps": 200,
+    "save_total_limit": 3,
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "validation_joint_tool_parameter_accuracy",
+    "secondary_checkpoint_metrics": ["structured_answer_automatic_coverage", "eval_loss"],
+    "estimated_wall_time_rtx2060_6gb": "approximately 4-7 hours; verify after first 200-step interval"
+  },
+  "safety": {
+    "full_training_authorized": false,
+    "environment": "surgical-llm only",
+    "rdv_environment_must_not_be_modified": true,
+    "abort_on_nonfinite_loss": true,
+    "abort_on_nonfinite_gradient_or_skipped_update": true,
+    "record_peak_memory_and_per_step_loss": true
+  }
+}

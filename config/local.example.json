@@ -1,0 +1,18 @@
+{
+  "paths": {
+    "model_checkpoint": "models/rendezvous_l8_cholectcholect50_k0_batchnorm_lowres.pth"
+  },
+  "vision": {
+    "device": "cpu",
+    "component_threshold": 0.5,
+    "triplet_threshold": 0.3
+  },
+  "video": {
+    "sample_interval": 2.0
+  },
+  "llm": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "api_key_env": "DEEPSEEK_API_KEY"
+  }
+}

@@ -1,0 +1,8 @@
+# Install in a separate environment. Do not install this into rdv4.
+torch==2.1.2
+transformers==4.46.3
+accelerate==1.1.1
+peft==0.13.2
+safetensors>=0.4.5
+# bitsandbytes is intentionally omitted from the first Windows/RTX 2060 smoke.
+

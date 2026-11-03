@@ -1,0 +1,224 @@
+{
+  "$schema": "https://example.com/surgical_knowledge_schema.json",
+  "version": "1.0",
+  "description": "Unified knowledge base for laparoscopic surgical actions, including instruments, verbs, targets, and valid triplets.",
+  
+  "instruments": {
+    "grasper": {
+      "id": 0,
+      "name": "grasper",
+      "description": "A surgical instrument used to grasp, hold, retract, and manipulate tissue.",
+      "functions": ["grasp", "retract", "manipulate"]
+    },
+    "bipolar": {
+      "id": 1,
+      "name": "bipolar",
+      "description": "A bipolar electrosurgical instrument commonly used for coagulation and dissection.",
+      "functions": ["coagulate", "dissect", "grasp", "retract"]
+    },
+    "hook": {
+      "id": 2,
+      "name": "hook",
+      "description": "An electrosurgical hook used for dissection, cutting, and coagulation.",
+      "functions": ["dissect", "cut", "coagulate"]
+    },
+    "scissors": {
+      "id": 3,
+      "name": "scissors",
+      "description": "A surgical cutting instrument used mainly for cutting and dissection.",
+      "functions": ["cut", "dissect"]
+    },
+    "clipper": {
+      "id": 4,
+      "name": "clipper",
+      "description": "A clip applicator used to place surgical clips on vessels or ducts.",
+      "functions": ["clip"]
+    },
+    "irrigator": {
+      "id": 5,
+      "name": "irrigator",
+      "description": "A surgical suction and irrigation instrument.",
+      "functions": ["aspirate", "irrigate", "dissect", "retract"]
+    }
+  },
+
+  "verbs": {
+    "grasp": {
+      "id": 0,
+      "name": "grasp",
+      "description": "Grasping or holding tissue with a surgical instrument."
+    },
+    "retract": {
+      "id": 1,
+      "name": "retract",
+      "description": "Pulling or holding tissue away to expose the surgical field."
+    },
+    "dissect": {
+      "id": 2,
+      "name": "dissect",
+      "description": "Separating tissue structures during surgery."
+    },
+    "coagulate": {
+      "id": 3,
+      "name": "coagulate",
+      "description": "Applying energy to tissue or vessels to achieve hemostasis."
+    },
+    "clip": {
+      "id": 4,
+      "name": "clip",
+      "description": "Applying a surgical clip to a vessel or duct."
+    },
+    "cut": {
+      "id": 5,
+      "name": "cut",
+      "description": "Dividing tissue using a cutting instrument."
+    },
+    "aspirate": {
+      "id": 6,
+      "name": "aspirate",
+      "description": "Removing fluid from the surgical field."
+    },
+    "irrigate": {
+      "id": 7,
+      "name": "irrigate",
+      "description": "Washing the surgical field with fluid."
+    },
+    "pack": {
+      "id": 8,
+      "name": "pack",
+      "description": "Placing or manipulating material for packing."
+    },
+    "null_verb": {
+      "id": 9,
+      "name": "null_verb",
+      "description": "Special verb indicating no action (for placeholder)."
+    }
+  },
+
+  "targets": {
+    "gallbladder": {
+      "id": 0,
+      "name": "gallbladder",
+      "description": "The gallbladder."
+    },
+    "cystic_plate": {
+      "id": 1,
+      "name": "cystic_plate",
+      "description": "The connective tissue plate surrounding the cystic duct and artery."
+    },
+    "cystic_duct": {
+      "id": 2,
+      "name": "cystic_duct",
+      "description": "The duct connecting the gallbladder to the biliary tree."
+    },
+    "cystic_artery": {
+      "id": 3,
+      "name": "cystic_artery",
+      "description": "The artery supplying the gallbladder."
+    },
+    "cystic_pedicle": {
+      "id": 4,
+      "name": "cystic_pedicle",
+      "description": "The bundle containing the cystic duct and artery."
+    },
+    "blood_vessel": {
+      "id": 5,
+      "name": "blood_vessel",
+      "description": "General blood vessel (not specifically cystic)."
+    },
+    "fluid": {
+      "id": 6,
+      "name": "fluid",
+      "description": "Bodily fluid present in the surgical field."
+    },
+    "abdominal_wall_cavity": {
+      "id": 7,
+      "name": "abdominal_wall_cavity",
+      "description": "The interior surface of the abdominal wall."
+    },
+    "liver": {
+      "id": 8,
+      "name": "liver",
+      "description": "The liver."
+    },
+    "adhesion": {
+      "id": 9,
+      "name": "adhesion",
+      "description": "Abnormal fibrous band connecting tissues."
+    },
+    "omentum": {
+      "id": 10,
+      "name": "omentum",
+      "description": "The omentum."
+    },
+    "peritoneum": {
+      "id": 11,
+      "name": "peritoneum",
+      "description": "The peritoneal membrane."
+    },
+    "gut": {
+      "id": 12,
+      "name": "gut",
+      "description": "Intestinal tract."
+    },
+    "specimen_bag": {
+      "id": 13,
+      "name": "specimen_bag",
+      "description": "A bag used to retrieve resected tissue."
+    },
+    "null_target": {
+      "id": 14,
+      "name": "null_target",
+      "description": "Placeholder target for no operation."
+    }
+  },
+
+  "triplets": [
+    {"instrument": "grasper", "verb": "dissect", "target": "cystic_plate"},
+    {"instrument": "grasper", "verb": "dissect", "target": "gallbladder"},
+    {"instrument": "irrigator", "verb": "retract", "target": "omentum"},
+    {"instrument": "grasper", "verb": "null_verb", "target": "null_target"},
+    {"instrument": "null_instrument", "verb": "null_verb", "target": "null_target"}
+  ],
+
+  "mappings": {
+    "instrument_to_id": {
+      "grasper": 0,
+      "bipolar": 1,
+      "hook": 2,
+      "scissors": 3,
+      "clipper": 4,
+      "irrigator": 5,
+      "null_instrument": -1
+    },
+    "verb_to_id": {
+      "grasp": 0,
+      "retract": 1,
+      "dissect": 2,
+      "coagulate": 3,
+      "clip": 4,
+      "cut": 5,
+      "aspirate": 6,
+      "irrigate": 7,
+      "pack": 8,
+      "null_verb": 9
+    },
+    "target_to_id": {
+      "gallbladder": 0,
+      "cystic_plate": 1,
+      "cystic_duct": 2,
+      "cystic_artery": 3,
+      "cystic_pedicle": 4,
+      "blood_vessel": 5,
+      "fluid": 6,
+      "abdominal_wall_cavity": 7,
+      "liver": 8,
+      "adhesion": 9,
+      "omentum": 10,
+      "peritoneum": 11,
+      "gut": 12,
+      "specimen_bag": 13,
+      "null_target": 14
+    }
+  }
+}

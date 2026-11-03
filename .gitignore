@@ -1,0 +1,83 @@
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Python environments and caches
+.venv/
+venv/
+env/
+.conda/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE and OS metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Downloaded model weights and model caches
+models/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.engine
+*.bin
+**/.cache/huggingface/
+
+# Adapters, checkpoints, generated datasets and evaluation artifacts
+artifacts/
+outputs/
+runs/
+checkpoints/
+checkpoint_*/
+**/checkpoint_*/
+adapter/
+adapters/
+*.npy
+*.npz
+knowledge/triplet_qa.jsonl
+
+# Runtime logs and temporary reports
+test_logs/
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Raw video, image and audio inputs
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+*.wav
+*.mp3
+*.m4a
+*.flac
+
+# Packaging/build outputs
+build/
+dist/
+*.egg-info/

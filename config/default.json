@@ -1,0 +1,36 @@
+{
+  "paths": {
+    "model_checkpoint": "models/rendezvous_l8_cholectcholect50_k0_batchnorm_lowres.pth",
+    "instrument_labels": "knowledge/instrument_names.json",
+    "verb_labels": "knowledge/verb_names.json",
+    "target_labels": "knowledge/target_names.json",
+    "triplet_labels": "knowledge/triplet_classes.json",
+    "knowledge_base": "knowledge/surgical_knowledge.json",
+    "knowledge_graph": "knowledge/surgical_knowledge_graph.json",
+    "result_cache": "artifacts/cache",
+    "audit_logs": "artifacts/logs"
+  },
+  "vision": {
+    "model_family": "RDV",
+    "model_version": "rendezvous_l8_cholect50_k0_batchnorm_lowres",
+    "device": "cpu",
+    "component_threshold": 0.5,
+    "triplet_threshold": 0.3,
+    "top_k_triplets": 5
+  },
+  "confidence": {
+    "low_threshold": 0.5,
+    "high_threshold": 0.75
+  },
+  "video": {
+    "sample_interval": 2.0,
+    "max_frames": null
+  },
+  "llm": {
+    "provider": "deepseek",
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-flash",
+    "api_key_env": "DEEPSEEK_API_KEY",
+    "max_tool_rounds": 6
+  }
+}
