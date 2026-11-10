@@ -1,0 +1,39 @@
+{
+  "epoch": 1,
+  "score": [
+    0.9642857142857143,
+    0.8,
+    0.07142857142857142,
+    0.14285714285714285,
+    -0.012371612287235885
+  ],
+  "adapter": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/best_adapter",
+  "metrics": {
+    "epoch": 1,
+    "checkpoint": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/checkpoint_step_000952",
+    "validation_loss": 0.012371612287235885,
+    "joint_tool_parameter_accuracy": {
+      "numerator": 27,
+      "denominator": 28,
+      "value": 0.9642857142857143
+    },
+    "answer_scoring": {
+      "automatic_coverage": 0.8,
+      "automatically_scored": 28,
+      "total": 35,
+      "pending_manual_review": 26,
+      "provisional_complete_answer_accuracy": 0.07142857142857142,
+      "provisional_numerator": 2,
+      "provisional_denominator": 28,
+      "final_complete_answer_accuracy": null,
+      "final_status": "pending_manual_review"
+    },
+    "overall_task_success_rate": {
+      "numerator": 5,
+      "denominator": 35,
+      "value": 0.14285714285714285,
+      "rule": "normal and abnormal tasks use their predefined success conditions"
+    },
+    "epoch_seconds": 1187.0947053544223
+  }
+}

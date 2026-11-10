@@ -22,14 +22,14 @@ __pycache__/
 .coverage
 htmlcov/
 
-# IDE and OS metadata
+# IDE and operating-system metadata
 .idea/
 .vscode/
 .DS_Store
 Thumbs.db
 Desktop.ini
 
-# Downloaded model weights and model caches
+# Downloaded base models and model caches
 models/
 *.pt
 *.pth
@@ -40,7 +40,13 @@ models/
 *.bin
 **/.cache/huggingface/
 
-# Adapters, checkpoints, generated datasets and evaluation artifacts
+# Keep the final selected LoRA adapter
+!qwen_test1/best_adapter/
+!qwen_test1/best_adapter/adapter_config.json
+!qwen_test1/best_adapter/adapter_model.safetensors
+!qwen_test1/best_adapter/README.md
+
+# Intermediate adapters and training checkpoints
 artifacts/
 outputs/
 runs/
@@ -49,9 +55,19 @@ checkpoint_*/
 **/checkpoint_*/
 adapter/
 adapters/
+
+# Generated arrays and selected generated datasets
 *.npy
 *.npz
 knowledge/triplet_qa.jsonl
+
+# Training token caches and distributed-runtime files
+token_cache_train/
+token_cache_validation/
+**/token_cache_train/
+**/token_cache_validation/
+rendezvous_*
+*.part
 
 # Runtime logs and temporary reports
 test_logs/
@@ -77,7 +93,7 @@ test_logs/
 *.m4a
 *.flac
 
-# Packaging/build outputs
+# Packaging and build outputs
 build/
 dist/
 *.egg-info/

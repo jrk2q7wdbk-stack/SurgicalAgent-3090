@@ -1,0 +1,20 @@
+{"raw_answer": "人工标注显示动作为：retract。", "reason": "structured_json_invalid:Unterminated string starting at", "sample_id": "ebafdb991c37017324e0d004"}
+{"raw_answer": "该时间范围的人工标注中包含事件：左下角右外侧、右下角右外侧、左下角左外侧、右下角左外侧。", "reason": "structured_status_missing", "sample_id": "8c840a8e36696c4ab3753006"}
+{"raw_answer": "人工标注显示该视频中出现过：ID ID3964 (标注进入) - 人工标注；ID ID3972 (标注离开) - 人工标注。", "reason": "structured_facts_missing_from_text:自动人孔", "sample_id": "abn-dabfde5aaedbcc0c72bd"}
+{"raw_answer": "人工标注显示器械为：grasper、hook。", "reason": "structured_facts_missing_from_text:{'instance_count': 1, 'triplet': 'engineer', 'target': 'instrument', 'instrument': 'grasper'},{'instance_count': 1, 'triplet': 'engineer', 'target': 'instrument', 'instrument': 'hook'}", "sample_id": "955e5bafce9971bf2b93bd79"}
+{"raw_answer": "开始时间不能晚于结束时间。", "reason": "structured_json_invalid:Expecting value", "sample_id": "abn-835015999fa9c6a24be9"}
+{"raw_answer": "人工标注显示靶点为：gallbladder、liver。", "reason": "structured_facts_missing_from_text:{'target': 'gallbladder', 'target_type': 'organ'},{'target': 'liver', 'target_type': 'organ'}", "sample_id": "4ccddb3bfc4d59dd0c2dc300"}
+{"raw_answer": "请给出具体的“开始时间”和“结束时间”的值，以便我进行推断或视觉检查。当前尚未获得足够的视觉或非视觉证据。请提供额外信息以启动报告或继续讨论。", "reason": "structured_json_invalid:Unterminated string starting at", "sample_id": "abn-bfd247f1367420ddd415"}
+{"raw_answer": "未检测到标注工具参数的冻结证据。", "reason": "structured_facts_missing_from_text:abdominal,infection", "sample_id": "abn-7b01bc918abf86a02ae5"}
+{"raw_answer": "人工标注显示动作为：retract。", "reason": "structured_json_invalid:Unterminated string starting at", "sample_id": "2f9195bd2a1ea57b5f127df6"}
+{"raw_answer": "“刚才那个时候”未给出开始或结束的时间，无有效转换；", "reason": "structured_json_invalid:Expecting value", "sample_id": "abn-054e66eaee8baa1ea057"}
+{"raw_answer": "人工标注显示动作为：retract。", "reason": "structured_json_invalid:Unterminated string starting at", "sample_id": "be1ffdda47ff921ebd01bd62"}
+{"raw_answer": "人工标注显示动作为：retract。", "reason": "structured_facts_missing_from_text:{'instance_count': 1, 'reference_count': 1, 'under_score_dont_annotation': false, 'verb': 'retract'}", "sample_id": "9e8dcf52b8b074aa52e89c95"}
+{"raw_answer": "按连续1 FPS正标注合并的事件为：grasper - retract - gallbladder [120, 124]秒（左边界截断、右边界截断）；hook - dissect - peritoneum [120, 124]秒（左边界截断、右边界截断）；grasper - null_verb - null_target [125, 130]秒（左边界截断、右边界截断）；hook - null_verb - null_target [126, 130]秒（左边界截断、右边界截断）。", "reason": "structured_status_missing", "sample_id": "dff96acec276098e044e90c1"}
+{"raw_answer": "开始时间不能晚于结束时间的异常处理未返回实体；请正确定义时间范围。", "reason": "structured_status_missing", "sample_id": "abn-18968ca779e5cafe856a"}
+{"raw_answer": "人工标注显示动作为：null_verb。", "reason": "structured_facts_missing_from_text:{'instance': 'null_verb', 'target': 'null_verb'}", "sample_id": "d663038b7acf1024770e5d2b"}
+{"raw_answer": "按连续1 FPS正标注合并的事件为：grasper - retract - gallbladder [180, 181]秒（右剪断边界）；hook - dissect - gallbladder [188, 210]秒（右剪断边界）；hook - null_verb - null_target [195, 199]秒（右剪断边界）。", "reason": "structured_status_missing", "sample_id": "109ee52126efe6f42a74c819"}
+{"raw_answer": "请等待片刻...", "reason": "structured_marker_missing", "sample_id": "abn-01cb5094cce8aeb5b652"}
+{"raw_answer": "人工标注显示动作为：null_verb。", "reason": "structured_json_invalid:Expecting ',' delimiter", "sample_id": "4d75500cfd815c455b0ba9be"}
+{"raw_answer": "人工标注显示器械为：hook。", "reason": "structured_facts_missing_from_text:{'instance_count': 1, 'triplet': 'hook'},{'source_type': 'annotation', 'target': 'entity', 'reference': 'instrument'}", "sample_id": "a1bd09589c952a82e41e15ff"}
+{"raw_answer": "人工标注显示动作为：null_verb、retract。", "reason": "structured_facts_missing_from_text:{'instance': 'null_verb', 'target': 'null_verb'},{'instance': 'retract', 'target': 'retract'}", "sample_id": "ba510f48419f641e7438f0fc"}

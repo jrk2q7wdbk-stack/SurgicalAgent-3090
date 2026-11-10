@@ -1,0 +1,129 @@
+{
+  "sample_count": 35,
+  "tool_selection_accuracy": {
+    "numerator": 28,
+    "denominator": 28,
+    "value": 1.0
+  },
+  "parameter_accuracy_given_correct_tool": {
+    "numerator": 27,
+    "denominator": 28,
+    "value": 0.9642857142857143,
+    "error_distribution": {
+      "call0:wrong:video_path": 1
+    }
+  },
+  "joint_tool_parameter_accuracy": {
+    "numerator": 27,
+    "denominator": 28,
+    "value": 0.9642857142857143
+  },
+  "answer_scoring": {
+    "automatic_coverage": 0.7714285714285715,
+    "automatically_scored": 27,
+    "total": 35,
+    "pending_manual_review": 13,
+    "provisional_complete_answer_accuracy": 0.2222222222222222,
+    "provisional_numerator": 6,
+    "provisional_denominator": 27,
+    "final_complete_answer_accuracy": null,
+    "final_status": "pending_manual_review"
+  },
+  "entity_set": {
+    "count": 27,
+    "micro": {
+      "precision": 0.43478260869565216,
+      "recall": 0.3125,
+      "f1": 0.36363636363636365
+    },
+    "macro": {
+      "precision": 0.6296296296296297,
+      "recall": 0.6296296296296297,
+      "f1": 0.6296296296296297
+    },
+    "empty_set_rule": "empty reference and empty prediction score 1; one-sided empty scores 0"
+  },
+  "triplet_set": {
+    "count": 27,
+    "micro": {
+      "precision": 0.6,
+      "recall": 0.3333333333333333,
+      "f1": 0.42857142857142855
+    },
+    "macro": {
+      "precision": 0.8888888888888888,
+      "recall": 0.8888888888888888,
+      "f1": 0.8888888888888888
+    },
+    "empty_set_rule": "empty reference and empty prediction score 1; one-sided empty scores 0"
+  },
+  "abnormal_handling": {
+    "refuse": {
+      "numerator": 6,
+      "denominator": 7,
+      "accuracy": 0.8571428571428571
+    },
+    "clarify": {
+      "numerator": 3,
+      "denominator": 6,
+      "accuracy": 0.5
+    },
+    "report_tool_error": {
+      "numerator": 2,
+      "denominator": 2,
+      "accuracy": 1.0
+    }
+  },
+  "refusal": {
+    "human_confirmed_denominator": 0,
+    "pending_labels_excluded": 35,
+    "correct_refusal_rate": null,
+    "false_refusal_rate": null,
+    "answer_coverage": null
+  },
+  "normal_task_success_rate": {
+    "numerator": 2,
+    "denominator": 20,
+    "value": 0.1
+  },
+  "abnormal_task_success_rate": {
+    "numerator": 9,
+    "denominator": 15,
+    "value": 0.6,
+    "expected_tool_failure_can_succeed": true
+  },
+  "overall_task_success_rate": {
+    "numerator": 11,
+    "denominator": 35,
+    "value": 0.3142857142857143,
+    "rule": "normal and abnormal tasks use their predefined success conditions"
+  },
+  "latency_ms": {
+    "complete": {
+      "count": 35,
+      "median": 2169.2743599414825,
+      "p95": 10725.230404734612
+    },
+    "first_visible": {
+      "count": 0,
+      "median": null,
+      "p95": null,
+      "note": "Non-streaming backends report unavailable."
+    }
+  },
+  "backend_id": "formal-round1-in-memory/epoch-3",
+  "backend_config": {
+    "protocol_version": "surgical-agent-output/v2",
+    "model_backend": "local_transformers_training_checkpoint",
+    "evidence_backend": "annotation_simulator",
+    "adapter_path": "epoch-3",
+    "device": "cuda",
+    "max_new_tokens": 384,
+    "max_tool_rounds": 2
+  },
+  "mock": false,
+  "run_status": "completed",
+  "time_tolerance_seconds": 0.01,
+  "model_performance_eligible": true,
+  "teacher_forced_validation_loss": 0.0032461061965935894
+}

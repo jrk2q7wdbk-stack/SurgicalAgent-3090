@@ -1,0 +1,216 @@
+{
+  "schema_version": "surgical-formal-training/v2",
+  "status": "completed",
+  "config": {
+    "run_id": "qwen25_05b_lora_round1_20261103",
+    "authorized_scope": "first formal training round; no test evaluation",
+    "model": {
+      "local_path": "models/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    "data": {
+      "train": "artifacts/local_training/train.qwen_tools.jsonl",
+      "validation": "artifacts/local_training/validation.qwen_tools.jsonl",
+      "validation_standardized": [
+        "artifacts/training_data/cholect50_rdv_original/validation.standardized.jsonl",
+        "artifacts/training_data/cholect50_rdv_original_abnormal/validation.abnormal.standardized.jsonl"
+      ],
+      "max_length": 2048,
+      "expected_train_samples": 7610,
+      "expected_validation_samples": 1100,
+      "test_policy": "frozen and not accepted by this runner"
+    },
+    "training": {
+      "epochs": 3,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 8,
+      "effective_batch_size": 8,
+      "learning_rate": 5e-05,
+      "warmup_ratio": 0.05,
+      "weight_decay": 0.01,
+      "max_grad_norm": 1.0,
+      "amp_initial_scale": 8192,
+      "amp_growth_interval": 2000,
+      "gradient_checkpointing": true,
+      "lora_r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj"
+      ],
+      "seed": 20261103,
+      "log_steps": 20,
+      "checkpoint_steps": 200,
+      "abort_on_nonfinite_or_skipped_update": true
+    },
+    "validation": {
+      "evaluate_each_epoch": true,
+      "teacher_forced_loss": "full validation split",
+      "generation_subset_limit": 35,
+      "generation_subset_rule": "deterministic stratified subset",
+      "max_new_tokens": 384,
+      "max_tool_rounds": 2,
+      "evidence_backend": "annotation_simulator",
+      "primary_checkpoint_metric": "joint_tool_parameter_accuracy",
+      "secondary_checkpoint_metrics": [
+        "automatic_structured_coverage",
+        "provisional_complete_answer_accuracy",
+        "overall_task_success_rate",
+        "eval_loss"
+      ]
+    },
+    "output_dir": "artifacts/stage6/formal_round1"
+  },
+  "runtime": {
+    "config_path": "/public/home/lics261109/KWY/SurgicalAgent_v3/config/local_lora_round1.json",
+    "output_dir": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1",
+    "output_path_ascii": true,
+    "resume_from_checkpoint": null,
+    "verification_max_optimizer_steps": null
+  },
+  "test_split_used": false,
+  "fresh_base_model": true,
+  "started_at": "2026-11-09T13:43:57",
+  "state": {
+    "epoch": 3,
+    "epoch_position": 7610,
+    "micro_step": 22830,
+    "optimizer_step": 2856,
+    "successful_optimizer_steps": 2856,
+    "skipped_updates": 0,
+    "total_steps": 2856,
+    "steps_per_epoch": 952
+  },
+  "epoch_summaries": [
+    {
+      "epoch": 1,
+      "checkpoint": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/checkpoint_step_000952",
+      "validation_loss": 0.012371612287235885,
+      "joint_tool_parameter_accuracy": {
+        "numerator": 27,
+        "denominator": 28,
+        "value": 0.9642857142857143
+      },
+      "answer_scoring": {
+        "automatic_coverage": 0.8,
+        "automatically_scored": 28,
+        "total": 35,
+        "pending_manual_review": 26,
+        "provisional_complete_answer_accuracy": 0.07142857142857142,
+        "provisional_numerator": 2,
+        "provisional_denominator": 28,
+        "final_complete_answer_accuracy": null,
+        "final_status": "pending_manual_review"
+      },
+      "overall_task_success_rate": {
+        "numerator": 5,
+        "denominator": 35,
+        "value": 0.14285714285714285,
+        "rule": "normal and abnormal tasks use their predefined success conditions"
+      },
+      "epoch_seconds": 1187.0947053544223
+    },
+    {
+      "epoch": 2,
+      "checkpoint": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/checkpoint_step_001904",
+      "validation_loss": 0.004969315374988465,
+      "joint_tool_parameter_accuracy": {
+        "numerator": 26,
+        "denominator": 28,
+        "value": 0.9285714285714286
+      },
+      "answer_scoring": {
+        "automatic_coverage": 0.6571428571428571,
+        "automatically_scored": 23,
+        "total": 35,
+        "pending_manual_review": 20,
+        "provisional_complete_answer_accuracy": 0.13043478260869565,
+        "provisional_numerator": 3,
+        "provisional_denominator": 23,
+        "final_complete_answer_accuracy": null,
+        "final_status": "pending_manual_review"
+      },
+      "overall_task_success_rate": {
+        "numerator": 7,
+        "denominator": 35,
+        "value": 0.2,
+        "rule": "normal and abnormal tasks use their predefined success conditions"
+      },
+      "epoch_seconds": 1215.4643407277763
+    },
+    {
+      "epoch": 3,
+      "checkpoint": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/checkpoint_step_002856",
+      "validation_loss": 0.0032461061965935894,
+      "joint_tool_parameter_accuracy": {
+        "numerator": 27,
+        "denominator": 28,
+        "value": 0.9642857142857143
+      },
+      "answer_scoring": {
+        "automatic_coverage": 0.7714285714285715,
+        "automatically_scored": 27,
+        "total": 35,
+        "pending_manual_review": 13,
+        "provisional_complete_answer_accuracy": 0.2222222222222222,
+        "provisional_numerator": 6,
+        "provisional_denominator": 27,
+        "final_complete_answer_accuracy": null,
+        "final_status": "pending_manual_review"
+      },
+      "overall_task_success_rate": {
+        "numerator": 11,
+        "denominator": 35,
+        "value": 0.3142857142857143,
+        "rule": "normal and abnormal tasks use their predefined success conditions"
+      },
+      "epoch_seconds": 1177.6507876813412
+    }
+  ],
+  "best_checkpoint": {
+    "epoch": 1,
+    "score": [
+      0.9642857142857143,
+      0.8,
+      0.07142857142857142,
+      0.14285714285714285,
+      -0.012371612287235885
+    ],
+    "adapter": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/best_adapter",
+    "metrics": {
+      "epoch": 1,
+      "checkpoint": "/public/home/lics261109/KWY/SurgicalAgent_v3/qwen_test1/checkpoint_step_000952",
+      "validation_loss": 0.012371612287235885,
+      "joint_tool_parameter_accuracy": {
+        "numerator": 27,
+        "denominator": 28,
+        "value": 0.9642857142857143
+      },
+      "answer_scoring": {
+        "automatic_coverage": 0.8,
+        "automatically_scored": 28,
+        "total": 35,
+        "pending_manual_review": 26,
+        "provisional_complete_answer_accuracy": 0.07142857142857142,
+        "provisional_numerator": 2,
+        "provisional_denominator": 28,
+        "final_complete_answer_accuracy": null,
+        "final_status": "pending_manual_review"
+      },
+      "overall_task_success_rate": {
+        "numerator": 5,
+        "denominator": 35,
+        "value": 0.14285714285714285,
+        "rule": "normal and abnormal tasks use their predefined success conditions"
+      },
+      "epoch_seconds": 1187.0947053544223
+    }
+  },
+  "elapsed_seconds": 3580.273856665939,
+  "peak_allocated_mib": 4340.40234375,
+  "peak_reserved_mib": 16358.0,
+  "completed_at": "2026-11-09T14:44:59"
+}

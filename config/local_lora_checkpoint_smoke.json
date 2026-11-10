@@ -1,0 +1,53 @@
+{
+  "run_id": "qwen25_05b_lora_checkpoint_smoke_20261103",
+  "authorized_scope": "checkpoint save/reload/resume verification only; no test evaluation",
+  "model": {
+    "local_path": "models/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  },
+  "data": {
+    "train": "artifacts/local_training/train.qwen_tools.jsonl",
+    "validation": "artifacts/local_training/validation.qwen_tools.jsonl",
+    "validation_standardized": [
+      "artifacts/training_data/cholect50_rdv_original/validation.standardized.jsonl",
+      "artifacts/training_data/cholect50_rdv_original_abnormal/validation.abnormal.standardized.jsonl"
+    ],
+    "max_length": 2048,
+    "expected_train_samples": 7610,
+    "expected_validation_samples": 1100,
+    "test_policy": "frozen and not accepted by this runner"
+  },
+  "training": {
+    "epochs": 3,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "effective_batch_size": 8,
+    "learning_rate": 0.00005,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "amp_initial_scale": 8192,
+    "amp_growth_interval": 2000,
+    "gradient_checkpointing": true,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj"],
+    "seed": 20261103,
+    "log_steps": 1,
+    "checkpoint_steps": 2,
+    "abort_on_nonfinite_or_skipped_update": true
+  },
+  "validation": {
+    "evaluate_each_epoch": false,
+    "teacher_forced_loss": "not run during checkpoint smoke",
+    "generation_subset_limit": 0,
+    "generation_subset_rule": "not run during checkpoint smoke",
+    "max_new_tokens": 64,
+    "max_tool_rounds": 1,
+    "evidence_backend": "annotation_simulator",
+    "primary_checkpoint_metric": "not applicable to checkpoint smoke",
+    "secondary_checkpoint_metrics": []
+  },
+  "output_dir": "D:/SurgicalAgentRuns/qwen_checkpoint_smoke_20261103"
+}

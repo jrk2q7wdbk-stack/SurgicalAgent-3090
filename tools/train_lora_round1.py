@@ -6,7 +6,7 @@ import argparse
 import json
 import math
 from pathlib import Path
-import shutil
+import random
 import sys
 import time
 
@@ -26,8 +26,9 @@ def _write_json(path: Path, value: dict) -> None:
 
 
 def _batch(row: dict, torch) -> dict:
-    ids = torch.as_tensor(row["input_ids"], dtype=torch.long, device="cuda").unsqueeze(0)
-    labels = torch.as_tensor(row["labels"], dtype=torch.long, device="cuda").unsqueeze(0)
+    # Token-cache arrays are read-only memory maps; copy before giving them to PyTorch.
+    ids = torch.tensor(row["input_ids"], dtype=torch.long, device="cuda").unsqueeze(0)
+    labels = torch.tensor(row["labels"], dtype=torch.long, device="cuda").unsqueeze(0)
     return {"input_ids": ids, "attention_mask": torch.ones_like(ids), "labels": labels}
 
 
@@ -35,13 +36,106 @@ def _all_finite(parameters) -> bool:
     return all(bool(parameter.detach().isfinite().all().cpu()) for parameter in parameters)
 
 
+def _resolve_path(value: str | Path, base: Path = ROOT) -> Path:
+    """Resolve config paths without accidentally prefixing absolute paths."""
+    path = Path(value).expanduser()
+    return path.resolve() if path.is_absolute() else (base / path).resolve()
+
+
+def _capture_rng_state(torch) -> dict:
+    state = {
+        "python": random.getstate(),
+        "torch_cpu": torch.get_rng_state(),
+        "torch_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else [],
+    }
+    try:
+        import numpy as np
+
+        state["numpy"] = np.random.get_state()
+    except ImportError:
+        state["numpy"] = None
+    return state
+
+
+def _restore_rng_state(state: dict, torch) -> None:
+    random.setstate(state["python"])
+    torch.set_rng_state(state["torch_cpu"])
+    if torch.cuda.is_available() and state.get("torch_cuda"):
+        torch.cuda.set_rng_state_all(state["torch_cuda"])
+    if state.get("numpy") is not None:
+        import numpy as np
+
+        np.random.set_state(state["numpy"])
+
+
+def _torch_save(path: Path, value, torch) -> None:
+    """Use a Python file handle to avoid the PyTorch 1.13 Windows Unicode path bug."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("wb") as handle:
+        torch.save(value, handle)
+
+
+def _torch_load(path: Path, torch, *, map_location="cpu"):
+    with path.open("rb") as handle:
+        return torch.load(handle, map_location=map_location)
+
+
 def _save_checkpoint(root: Path, model, optimizer, scheduler, scaler, state: dict, torch) -> Path:
     checkpoint = root / f"checkpoint_step_{state['optimizer_step']:06d}"
     checkpoint.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(checkpoint / "adapter")
-    torch.save({"optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(), "scaler": scaler.state_dict(), "state": state}, checkpoint / "training_state.pt")
+    payload = {
+        "schema_version": "surgical-lora-checkpoint/v2",
+        "optimizer": optimizer.state_dict(),
+        "scheduler": scheduler.state_dict(),
+        "scaler": scaler.state_dict(),
+        "state": dict(state),
+        "rng_state": _capture_rng_state(torch),
+    }
+    _torch_save(checkpoint / "training_state.pt", payload, torch)
     _write_json(checkpoint / "state.json", state)
+    files = []
+    for path in sorted(
+        item
+        for item in checkpoint.rglob("*")
+        if item.is_file() and item.name != "checkpoint_manifest.json"
+    ):
+        files.append({"path": path.relative_to(checkpoint).as_posix(), "bytes": path.stat().st_size})
+    _write_json(
+        checkpoint / "checkpoint_manifest.json",
+        {
+            "schema_version": "surgical-lora-checkpoint-manifest/v1",
+            "complete": True,
+            "optimizer_step": state["optimizer_step"],
+            "successful_optimizer_steps": state["successful_optimizer_steps"],
+            "files": files,
+        },
+    )
     return checkpoint
+
+
+def _load_checkpoint_state(checkpoint: Path, optimizer, scheduler, scaler, torch) -> dict:
+    required = [
+        checkpoint / "adapter" / "adapter_config.json",
+        checkpoint / "adapter" / "adapter_model.safetensors",
+        checkpoint / "training_state.pt",
+        checkpoint / "state.json",
+        checkpoint / "checkpoint_manifest.json",
+    ]
+    missing = [str(path) for path in required if not path.is_file()]
+    if missing:
+        raise RuntimeError(f"incomplete checkpoint; missing: {missing}")
+    manifest = json.loads((checkpoint / "checkpoint_manifest.json").read_text(encoding="utf-8"))
+    if not manifest.get("complete"):
+        raise RuntimeError("checkpoint manifest is not marked complete")
+    payload = _torch_load(checkpoint / "training_state.pt", torch, map_location="cpu")
+    if payload.get("schema_version") != "surgical-lora-checkpoint/v2":
+        raise RuntimeError("unsupported or diagnostic-only checkpoint format")
+    optimizer.load_state_dict(payload["optimizer"])
+    scheduler.load_state_dict(payload["scheduler"])
+    scaler.load_state_dict(payload["scaler"])
+    _restore_rng_state(payload["rng_state"], torch)
+    return dict(payload["state"])
 
 
 def _validation_loss(model, dataset, torch) -> float:
@@ -109,43 +203,75 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="config/local_lora_round1.json")
     parser.add_argument("--confirm-full-training", action="store_true")
+    parser.add_argument("--output-dir", help="Absolute ASCII-only output directory override")
+    parser.add_argument("--resume-from-checkpoint", help="Complete v2 checkpoint to resume")
+    parser.add_argument(
+        "--verification-max-optimizer-steps",
+        type=int,
+        help="Stop successfully after at most 20 optimizer steps; for checkpoint-flow verification only",
+    )
     args = parser.parse_args()
-    if not args.confirm_full_training:
+    verification_limit = args.verification_max_optimizer_steps
+    if verification_limit is None and not args.confirm_full_training:
         raise SystemExit("Refusing to start formal training without --confirm-full-training")
-    config = json.loads((ROOT / args.config).read_text(encoding="utf-8"))
+    if verification_limit is not None and (verification_limit < 1 or verification_limit > 20):
+        raise SystemExit("--verification-max-optimizer-steps must be in [1, 20]")
+    config_path = _resolve_path(args.config)
+    config = json.loads(config_path.read_text(encoding="utf-8"))
     if "test" in json.dumps(config.get("data", {}), ensure_ascii=False).lower() and config["data"].get("test_policy") != "frozen and not accepted by this runner":
         raise SystemExit("Test data is forbidden in the training runner")
 
     import torch
-    from peft import LoraConfig, get_peft_model
+    from peft import LoraConfig, PeftModel, get_peft_model
     from transformers import AutoModelForCausalLM, AutoTokenizer, get_linear_schedule_with_warmup, set_seed
 
-    output = ROOT / config["output_dir"]
+    output = _resolve_path(args.output_dir or config["output_dir"])
+    if sys.platform == "win32" and not str(output).isascii():
+        raise SystemExit("Windows training output must be an ASCII-only absolute path; use --output-dir D:/SurgicalAgentRuns/<run>")
+    resume_checkpoint = _resolve_path(args.resume_from_checkpoint) if args.resume_from_checkpoint else None
     output.mkdir(parents=True, exist_ok=True)
     event_log = output / "training_log.jsonl"
-    report = {"schema_version": "surgical-formal-training/v1", "status": "initializing", "config": config, "test_split_used": False, "fresh_base_model": True, "started_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+    report = {
+        "schema_version": "surgical-formal-training/v2",
+        "status": "initializing",
+        "config": config,
+        "runtime": {
+            "config_path": str(config_path),
+            "output_dir": str(output),
+            "output_path_ascii": str(output).isascii(),
+            "resume_from_checkpoint": str(resume_checkpoint) if resume_checkpoint else None,
+            "verification_max_optimizer_steps": verification_limit,
+        },
+        "test_split_used": False,
+        "fresh_base_model": resume_checkpoint is None,
+        "started_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    }
     _write_json(output / "run_report.json", report)
     try:
         set_seed(config["training"]["seed"])
-        tokenizer = AutoTokenizer.from_pretrained(config["model"]["local_path"], revision=config["model"]["revision"], local_files_only=True)
-        train_cache_report = build_token_cache(ROOT / config["data"]["train"], output / "token_cache_train", tokenizer, config["data"]["max_length"])
-        validation_cache_report = build_token_cache(ROOT / config["data"]["validation"], output / "token_cache_validation", tokenizer, config["data"]["max_length"])
+        model_path = _resolve_path(config["model"]["local_path"])
+        tokenizer = AutoTokenizer.from_pretrained(model_path, revision=config["model"]["revision"], local_files_only=True)
+        train_cache_report = build_token_cache(_resolve_path(config["data"]["train"]), output / "token_cache_train", tokenizer, config["data"]["max_length"])
+        validation_cache_report = build_token_cache(_resolve_path(config["data"]["validation"]), output / "token_cache_validation", tokenizer, config["data"]["max_length"])
         if train_cache_report["sample_count"] != config["data"]["expected_train_samples"] or validation_cache_report["sample_count"] != config["data"]["expected_validation_samples"]:
             raise RuntimeError("token cache sample count does not match frozen config")
         train_dataset, validation_dataset = TokenCacheDataset(output / "token_cache_train"), TokenCacheDataset(output / "token_cache_validation")
         validation_rows = []
         for path in config["data"]["validation_standardized"]:
-            validation_rows.extend(read_jsonl(ROOT / path))
+            validation_rows.extend(read_jsonl(_resolve_path(path)))
         if len(validation_rows) != config["data"]["expected_validation_samples"]:
             raise RuntimeError("standardized validation count mismatch")
 
-        base = AutoModelForCausalLM.from_pretrained(config["model"]["local_path"], revision=config["model"]["revision"], torch_dtype=torch.float16, local_files_only=True, low_cpu_mem_usage=True).cuda()
+        base = AutoModelForCausalLM.from_pretrained(model_path, revision=config["model"]["revision"], torch_dtype=torch.float16, local_files_only=True, low_cpu_mem_usage=True).cuda()
         if config["training"]["gradient_checkpointing"]:
             base.gradient_checkpointing_enable()
             base.config.use_cache = False
             if hasattr(base, "enable_input_require_grads"):
                 base.enable_input_require_grads()
-        model = get_peft_model(base, LoraConfig(r=config["training"]["lora_r"], lora_alpha=config["training"]["lora_alpha"], lora_dropout=config["training"]["lora_dropout"], target_modules=config["training"]["target_modules"], task_type="CAUSAL_LM"))
+        if resume_checkpoint is None:
+            model = get_peft_model(base, LoraConfig(r=config["training"]["lora_r"], lora_alpha=config["training"]["lora_alpha"], lora_dropout=config["training"]["lora_dropout"], target_modules=config["training"]["target_modules"], task_type="CAUSAL_LM"))
+        else:
+            model = PeftModel.from_pretrained(base, resume_checkpoint / "adapter", is_trainable=True)
         model.train()
         trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
         optimizer = torch.optim.AdamW(trainable, lr=config["training"]["learning_rate"], weight_decay=config["training"]["weight_decay"])
@@ -153,19 +279,44 @@ def main() -> None:
         total_steps = steps_per_epoch * config["training"]["epochs"]
         scheduler = get_linear_schedule_with_warmup(optimizer, int(total_steps * config["training"]["warmup_ratio"]), total_steps)
         scaler = torch.cuda.amp.GradScaler(init_scale=config["training"]["amp_initial_scale"], growth_interval=config["training"]["amp_growth_interval"])
-        state = {"epoch": 0, "micro_step": 0, "optimizer_step": 0, "successful_optimizer_steps": 0, "skipped_updates": 0, "total_steps": total_steps, "steps_per_epoch": steps_per_epoch}
+        state = {"epoch": 0, "epoch_position": 0, "micro_step": 0, "optimizer_step": 0, "successful_optimizer_steps": 0, "skipped_updates": 0, "total_steps": total_steps, "steps_per_epoch": steps_per_epoch}
+        if resume_checkpoint is not None:
+            state = _load_checkpoint_state(resume_checkpoint, optimizer, scheduler, scaler, torch)
+            if state["total_steps"] != total_steps or state["steps_per_epoch"] != steps_per_epoch:
+                raise RuntimeError("checkpoint schedule does not match the current frozen data/config")
+            if verification_limit is not None and verification_limit <= state["optimizer_step"]:
+                raise RuntimeError("verification step limit must be greater than the resumed optimizer step")
+            report["resume"] = {
+                "checkpoint": str(resume_checkpoint),
+                "optimizer_step": state["optimizer_step"],
+                "successful_optimizer_steps": state["successful_optimizer_steps"],
+                "scheduler_last_epoch": scheduler.last_epoch,
+                "learning_rate": scheduler.get_last_lr()[0],
+            }
+        if not _all_finite(trainable):
+            raise FloatingPointError("LoRA parameters are non-finite before training")
         best = None
         epoch_summaries = []
         torch.cuda.reset_peak_memory_stats()
         training_started = time.perf_counter()
 
-        for epoch in range(1, config["training"]["epochs"] + 1):
+        if state["epoch"] and state.get("epoch_position", 0) >= len(train_dataset):
+            first_epoch = state["epoch"] + 1
+        else:
+            first_epoch = max(1, state["epoch"])
+        verification_checkpoint = None
+        stop_for_verification = False
+        for epoch in range(first_epoch, config["training"]["epochs"] + 1):
             generator = torch.Generator().manual_seed(config["training"]["seed"] + epoch)
             order = torch.randperm(len(train_dataset), generator=generator).tolist()
+            start_position = state.get("epoch_position", 0) if state["epoch"] == epoch else 0
+            state["epoch"] = epoch
+            state["epoch_position"] = start_position
             optimizer.zero_grad(set_to_none=True)
             accumulated_loss, accumulated_micro = 0.0, 0
             epoch_started = time.perf_counter()
-            for position, index in enumerate(order, 1):
+            for position in range(start_position + 1, len(order) + 1):
+                index = order[position - 1]
                 row = train_dataset.row(index)
                 with torch.cuda.amp.autocast(dtype=torch.float16):
                     loss = model(**_batch(row, torch)).loss / config["training"]["gradient_accumulation_steps"]
@@ -173,6 +324,7 @@ def main() -> None:
                 accumulated_loss += float(loss.detach().cpu()) * config["training"]["gradient_accumulation_steps"]
                 accumulated_micro += 1
                 state["micro_step"] += 1
+                state["epoch_position"] = position
                 boundary = accumulated_micro == config["training"]["gradient_accumulation_steps"] or position == len(order)
                 if not boundary:
                     continue
@@ -200,8 +352,14 @@ def main() -> None:
                     raise FloatingPointError(f"nonfinite or skipped update at optimizer step {state['optimizer_step']}")
                 if state["optimizer_step"] % config["training"]["checkpoint_steps"] == 0:
                     _save_checkpoint(output, model, optimizer, scheduler, scaler, state, torch)
+                if verification_limit is not None and state["optimizer_step"] >= verification_limit:
+                    verification_checkpoint = _save_checkpoint(output, model, optimizer, scheduler, scaler, state, torch)
+                    stop_for_verification = True
+                    break
                 accumulated_loss, accumulated_micro = 0.0, 0
 
+            if stop_for_verification:
+                break
             state["epoch"] = epoch
             checkpoint = _save_checkpoint(output, model, optimizer, scheduler, scaler, state, torch)
             summary, validation_loss = _evaluate_checkpoint(output, epoch, model, tokenizer, validation_dataset, validation_rows, config, torch)
@@ -216,7 +374,10 @@ def main() -> None:
             report.update({"status": "training", "state": state, "epoch_summaries": epoch_summaries, "best_checkpoint": best, "elapsed_seconds": time.perf_counter() - training_started, "peak_allocated_mib": torch.cuda.max_memory_allocated() / 2**20, "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20})
             _write_json(output / "run_report.json", report)
 
-        report.update({"status": "completed", "state": state, "epoch_summaries": epoch_summaries, "best_checkpoint": best, "elapsed_seconds": time.perf_counter() - training_started, "peak_allocated_mib": torch.cuda.max_memory_allocated() / 2**20, "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20, "completed_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
+        if stop_for_verification:
+            report.update({"status": "verification_completed", "state": state, "verification_checkpoint": str(verification_checkpoint), "epoch_summaries": epoch_summaries, "best_checkpoint": best, "elapsed_seconds": time.perf_counter() - training_started, "peak_allocated_mib": torch.cuda.max_memory_allocated() / 2**20, "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20, "completed_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
+        else:
+            report.update({"status": "completed", "state": state, "epoch_summaries": epoch_summaries, "best_checkpoint": best, "elapsed_seconds": time.perf_counter() - training_started, "peak_allocated_mib": torch.cuda.max_memory_allocated() / 2**20, "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20, "completed_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
     except torch.cuda.OutOfMemoryError as exc:
         report.update({"status": "oom", "error_category": "gpu_memory", "error": str(exc), "test_split_used": False})
     except FloatingPointError as exc:
@@ -225,7 +386,7 @@ def main() -> None:
         report.update({"status": "failed", "error_category": "runtime_or_dependency", "error": f"{type(exc).__name__}: {exc}", "test_split_used": False})
     _write_json(output / "run_report.json", report)
     print(json.dumps({key: report.get(key) for key in ("status", "state", "best_checkpoint", "elapsed_seconds", "peak_allocated_mib", "error_category", "error", "test_split_used")}, ensure_ascii=False, indent=2), flush=True)
-    if report["status"] != "completed":
+    if report["status"] not in {"completed", "verification_completed"}:
         raise SystemExit(2)
 
 
